@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Categoria</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for categoria in categorias %}
+        <tr>
+          <th scope="row">{{categoria.id}}</th>
+          <td>{{categoria.categoria}}</td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock contenido %}   

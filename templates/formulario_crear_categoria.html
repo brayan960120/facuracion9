@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<form action="crear_categoria" method="post">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="categoria">Nombre categoria</label>
+        <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Nombre categoria">
+      </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock contenido %}
