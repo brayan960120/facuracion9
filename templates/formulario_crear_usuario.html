@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form action="crear_usuario" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="nombre_completo">Nombre completo</label>
+            <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" placeholder="Nombre completo">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="contraseña">Contraseña</label>
+            <input type="password" class="form-control" id="contraseña" name="contraseña" readonly">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="rol">Rol</label>
+            <input type="text" class="form-control" id="rol" name="rol" placeholder="Rol">
+        </div>
+        
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock contenido %}

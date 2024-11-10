@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Nombre completo</th>
+      <th scope="col">Email</th>      
+      <th scope="col">Contraseña</th>   
+      <th scope="col">Rol</th>      
+    </tr>
+  </thead>
+  <tbody>
+      {% for usuario in usuarios %}
+        <tr>
+          <th scope="row">{{usuario.id}}</th>
+          <td>{{usuario.nombre_completo}}</td>
+          <td>{{usuario.email}}</td>
+          <td>{{usuario.contraseña}}</td>
+          <td>{{usuario.rol}}</td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock contenido %}    
+     

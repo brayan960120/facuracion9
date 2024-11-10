@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Numero factura</th>
+      <th scope="col">Fecha factura</th>
+      <th scope="col">Cedula cliente</th>
+      <th scope="col">Nombre completo</th>    
+      <th scope="col">Direccion</th>
+      <th scope="col">Telefono</th>  
+      <th scope="col">Email</th>
+      <th scope="col">Id cliente</th>   
+      <th scope="col">Id usuario</th>      
+    </tr>
+  </thead>
+  <tbody>
+      {% for factura in facturas %}
+        <tr>
+          <th scope="row">{{factura.id}}</th>
+          <td>{{factura.Facturas.numero_factura}}</td>
+          <td>{{factura.Facturas.fecha_factura}}</td>
+          <td>{{factura.Facturas.cedula_cliente}}</td>
+          <td>{{factura.Facturas.nombre_completo}}</td>
+          <td>{{factura.Facturas.direccion}}</td>
+          <td>{{factura.Facturas.telefono}}</td>
+          <td>{{factura.Facturas.email}}</td>
+          <td>{{factura.Clientes.nombre_completo}}</td>
+          <td>{{factura.Usuarios.nombre_completo}}</td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock contenido %}    

@@ -1,6 +1,15 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <form action="crear_categoria" method="post">
     <div class="form-row">
       <div class="form-group col-md-6">

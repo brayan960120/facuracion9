@@ -1,6 +1,15 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <form action="crear_producto" method="post">
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -14,7 +23,8 @@
     
 
   </div>
-  <div class="form-group col-md-4">
+  
+  <div class="form-group col-md-6">
     <label for="unidad_medida">Unidad de Medida</label>
     <select id="unidad_medida" name="unidad_medida" class="form-control">
         <option selected>Seleccione...</option>
@@ -28,16 +38,16 @@
     <label for="cantida_stock">Cantidad Stock</label>
     <input type="text" class="form-control" id="cantida_stock" name="cantida_stock" placeholder="Cantidad en Stock">
   </div>
-    <div class="form-group col-md-4">
-      <label for="categoria">Categoria</label>
-      <select id="categoria" name="categoria" class="form-control">
-          <option selected>Seleccione...</option>
-          {% for categoria in categoria %}
-            <option value={{categoria.id}}>{{categoria.categoria}}</option>
-          {% endfor %}
-        <option>...</option>
-      </select>
-    </div>
+  <div class="form-group col-md-6">
+    <label for="categoria">Categoria</label>
+    <select id="categoria" name="categoria" class="form-control">
+        <option selected>Seleccione...</option>
+        {% for categoria in categoria %}
+          <option value={{categoria.id}}>{{categoria.categoria}}</option>
+        {% endfor %}
+      <option>...</option>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 
