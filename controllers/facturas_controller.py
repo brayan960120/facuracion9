@@ -50,3 +50,9 @@ class FacturasController(FlaskController):
     def ver_facturas():
         facturas = Facturas.obtener_facturas()
         return render_template('tabla_facturas.html', titulo_pagina = 'Ver Facturas', facturas=facturas)
+    
+    @app.route('/eliminar_facturas/<id>')
+    def eliminar_factura(id):
+        Facturas.eliminar_factura(id)
+        facturas = Facturas.obtener_facturas()
+        return render_template('tabla_facturas.html', titulo_pagina = 'Ver facturas', facturas = facturas)

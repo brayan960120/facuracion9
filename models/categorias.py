@@ -19,6 +19,13 @@ class Categorias(Base):
         categoria = session.add(categoria)
         session.commit()
         return categoria
+    
+    def eliminar_categoria(id):
+        categoria = session.query(Categorias).get(id)        
+        session.delete(categoria)
+        session.commit()
+        return categoria
+    
 
     
     

@@ -41,3 +41,9 @@ class Facturas(Base):
         factura = session.add(factura)
         session.commit()
         return factura
+
+    def eliminar_factura(id):
+        factura = session.query(Facturas).get(id)        
+        session.delete(factura)
+        session.commit()
+        return factura

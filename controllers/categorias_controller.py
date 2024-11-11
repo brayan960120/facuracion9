@@ -20,3 +20,10 @@ class CategoriasController(FlaskController):
     def ver_categorias():
         categorias = Categorias.obtener_categorias()
         return render_template('tabla_categorias.html', titulo_pagina = 'Ver categorias', categorias=categorias)
+    
+    
+    @app.route('/eliminar_categorias/<id>')
+    def eliminar_categoria(id):
+        Categorias.eliminar_categoria(id)
+        categorias = Categorias.obtener_categorias()
+        return render_template('tabla_categorias.html', titulo_pagina = 'Ver categorias', categorias=categorias)

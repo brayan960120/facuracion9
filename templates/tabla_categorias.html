@@ -6,13 +6,18 @@
     <tr>
       <th scope="col">id</th>
       <th scope="col">Categoria</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
       {% for categoria in categorias %}
         <tr>
           <th scope="row">{{categoria.id}}</th>
-          <td>{{categoria.categoria}}</td>
+          <td>{{categoria.categoria}}</td> 
+          <td>
+            <a class="btn btn-danger" href="/eliminar_categorias/{{categoria.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/editar_categorias/{{categoria.id}}">Editar</a>
+          </td>   
         </tr>
       {% endfor %}    
   </tbody>

@@ -23,5 +23,11 @@ class Usuarios(Base):
         usuario = session.add(usuario)
         session.commit()
         return usuario
+    
+    def eliminar_usuario(id):
+        usuario = session.query(Usuarios).get(id)        
+        session.delete(usuario)
+        session.commit()
+        return usuario
        
    

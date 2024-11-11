@@ -20,11 +20,18 @@ class Productos(Base):
         self.categoria = categoria
 
     def obtener_productos():
-        productos = session.query(Productos).join(Categorias).all()
+        productos = session.query(Productos, Categorias).join(Categorias, Productos.categoria == Categorias.id).all()
+        print(productos)
         return productos
     
     def agregar_producto(producto):
         producto = session.add(producto)
+        session.commit()
+        return producto
+    
+    def eliminar_producto(id):
+        producto = session.query(Productos).get(id)        
+        session.delete(producto)
         session.commit()
         return producto
 

@@ -10,18 +10,23 @@
       <th scope="col">Unidad Medida</th>   
       <th scope="col">Cantidad en Stock</th>      
       <th scope="col">Categoria</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
       {% for producto in productos %}
-        <tr>
-          <th scope="row">{{producto.id}}</th>
-          <td>{{producto.descripcion}}</td>
-          <td>{{producto.valor_unitario}}</td>
-          <td>{{producto.unidad_medida}}</td>
-          <td>{{producto.cantida_stock}}</td>
-          <td>{{producto.categoria}}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{producto.Productos.id}}</th>
+        <td>{{producto.Productos.descripcion}}</td>
+        <td>{{producto.Productos.valor_unitario}}</td>
+        <td>{{producto.Productos.unidad_medida}}</td>
+        <td>{{producto.Productos.cantida_stock}}</td>
+        <td>{{producto.Categorias.categoria}}</td>
+        <td> 
+          <a class="btn btn-danger" href="/eliminar_producto/{{producto.Productos.id}}">Eliminar</a>
+          <a class="btn btn-success" href="/editar_producto/{{producto.Productos.id}}">Editar</a>
+        </td>
+      </tr>
       {% endfor %}    
   </tbody>
 </table>

@@ -8,7 +8,8 @@
       <th scope="col">Nombre completo</th>
       <th scope="col">Email</th>      
       <th scope="col">Contraseña</th>   
-      <th scope="col">Rol</th>      
+      <th scope="col">Rol</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,10 @@
           <td>{{usuario.email}}</td>
           <td>{{usuario.contraseña}}</td>
           <td>{{usuario.rol}}</td>
+          <td>
+            <a class="btn btn-danger" href="/eliminar_usuario/{{usuario.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/editar_usuario/{{usuario.id}}">Editar</a>
+          </td>
         </tr>
       {% endfor %}    
   </tbody>

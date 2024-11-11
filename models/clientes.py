@@ -37,3 +37,9 @@ class Clientes(Base, SerializerMixin):
         cliente = session.query(Clientes).filter(Clientes.numero_identificacion == numero_identificacion).first()
         print(cliente)
         return cliente.to_dict()
+    
+    def eliminar_cliente(id):
+        cliente = session.query(Clientes).get(id)        
+        session.delete(cliente)
+        session.commit()
+        return cliente

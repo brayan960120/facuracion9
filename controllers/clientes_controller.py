@@ -32,10 +32,18 @@ class ClientesController(FlaskController):
     @app.route('/ver_clientes')
     def ver_clientes():
         clientes = Clientes.obtener_clientes()
-        return render_template('tabla_clientes.html', titulo_pagina = 'Ver clientes', clientes = clientes)
+        return render_template('tabla_clientes.html', titulo_pagina = 'ver clientes', clientes = clientes)
     
 
     @app.route('/consultar_cliente_numero_identificacion/<numero_identificacion>')
     def consultar_cliente_numero_identificacion(numero_identificacion):
         cliente = Clientes.obtener_cliente_por_numero_identificacion(numero_identificacion)
         return cliente 
+
+    
+    @app.route('/eliminar_clientes/<id>')
+    def eliminar_cliente(id):
+        Clientes.eliminar_cliente(id)
+        clientes = Clientes.obtener_clientes()
+        return render_template('tabla_clientes.html', titulo_pagina = 'ver clientes', clientes = clientes)
+  

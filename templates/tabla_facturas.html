@@ -13,7 +13,8 @@
       <th scope="col">Telefono</th>  
       <th scope="col">Email</th>
       <th scope="col">Id cliente</th>   
-      <th scope="col">Id usuario</th>      
+      <th scope="col">Id usuario</th> 
+      <th scope="col">Acciones</th>     
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,10 @@
           <td>{{factura.Facturas.email}}</td>
           <td>{{factura.Clientes.nombre_completo}}</td>
           <td>{{factura.Usuarios.nombre_completo}}</td>
+          <td> 
+            <a class="btn btn-danger" href="/eliminar_facturas/{{factura.Facturas.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/editar_facturas/{{factura.Facturas.id}}">Editar</a>
+          </td>
         </tr>
       {% endfor %}    
   </tbody>

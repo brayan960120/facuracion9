@@ -11,6 +11,7 @@
       <th scope="col">Direccion</th>   
       <th scope="col">Telefono</th>      
       <th scope="col">Email</th>
+      <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,11 @@
           <td>{{cliente.direccion}}</td>
           <td>{{cliente.telefono}}</td>
           <td>{{cliente.email}}</td>
+          <td> 
+            <a class="btn btn-danger" href="/eliminar_clientes/{{cliente.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/editar_clientes/{{cliente.id}}">Editar</a>
+          </td>
+
         </tr>
       {% endfor %}    
   </tbody>

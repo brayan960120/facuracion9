@@ -30,3 +30,10 @@ class UsuariosController(FlaskController):
     def ver_usuarios():
         usuarios = Usuarios.obtener_usuarios()
         return render_template('tabla_usuarios.html', titulo_pagina = 'Ver Usuarios', usuarios= usuarios)
+    
+    
+    @app.route('/eliminar_usuario/<id>')
+    def eliminar_usuario(id):
+        Usuarios.eliminar_usuario(id)
+        usuarios = Usuarios.obtener_usuarios()
+        return render_template('tabla_usuarios.html', titulo_pagina = 'Ver Usuarios', usuarios=usuarios)
