@@ -41,4 +41,11 @@ class ProductosController(FlaskController):
         Productos.eliminar_producto(id)
         productos = Productos.obtener_productos()
         return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos)
+    
+         
+    @app.route('/actualizar_producto')
+    def actualizar_producto():
+        Productos.actualizar_producto()
+        productos = Productos.obtener_productos()
+        return render_template('formulario_actualizar_producto.html', titulo_pagina = 'Actualizar productos', productos=productos)
   

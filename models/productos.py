@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, update
 from src.models import session, Base
 from src.models.categorias import Categorias 
 
@@ -7,9 +7,9 @@ class Productos(Base):
     __tablename__ = 'productos'
     id = Column(Integer, primary_key=True)
     descripcion = Column(String(300), unique=True, nullable=False)
-    valor_unitario = Column(Float(10,8))
+    valor_unitario = Column(Float(10,8), nullable=False)
     unidad_medida = Column(String(3), nullable=False)
-    cantida_stock = Column(Float(10,8))
+    cantida_stock = Column(Float(10,8), nullable=False)
     categoria = Column(Integer, ForeignKey('categorias.id'), nullable=False)
 
     def __init__(self, descripcion, valor_unitario, unidad_medida, cantida_stock, categoria):
@@ -34,5 +34,5 @@ class Productos(Base):
         session.delete(producto)
         session.commit()
         return producto
-
+    
     
