@@ -3,6 +3,8 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.categorias import Categorias
+from flask import session
+
 
 class ProductosController(FlaskController):
     @app.route('/crear_producto', methods=['POST','GET'])
@@ -29,7 +31,9 @@ class ProductosController(FlaskController):
                 return redirect(url_for('ver_productos'))
         categoria = Categorias.obtener_categorias()
         return render_template('formulario_crear_producto.html', titulo_pagina = 'Crear Producto', categoria=categoria)
+    
 
+    
     @app.route('/ver_productos')
     def ver_productos():
         productos = Productos.obtener_productos()
@@ -42,10 +46,26 @@ class ProductosController(FlaskController):
         productos = Productos.obtener_productos()
         return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos)
     
-         
-    @app.route('/actualizar_producto')
-    def actualizar_producto():
-        Productos.actualizar_producto()
-        productos = Productos.obtener_productos()
-        return render_template('formulario_actualizar_producto.html', titulo_pagina = 'Actualizar productos', productos=productos)
-  
+
+    @app.route('/actualizar_producto/<id>', methods=['GET', 'POST'])
+    def actualizar_producto(id):
+        if request.method == 'GET':
+        # Lógica para mostrar el formulario de edición con los datos actuales del producto
+            producto= Productos.obtener_producto_por_id(id)
+            return render_template('formulario_actualizar_producto.html',titulo_pagina = 'Actualizar Productos', producto=producto)
+
+        if request.method == 'POST':
+        # Lógica para procesar la actualización del 
+            descripcion = request.form.get('descripcion')    
+            valor_unitario = request.form.get('valor_unitario')    
+            unidad_medida = request.form.get('unidad_medida')    
+            cantida_stock = request.form.get('cantida_stock')    
+            categoria = request.form.get('categoria')
+            print (descripcion)
+
+        # Actualizar el producto en la base de datos
+            producto = Productos(descripcion,valor_unitario,unidad_medida,cantida_stock,categoria)
+            Productos.actualizar_producto(producto)
+            
+            return redirect(url_for('ver_producto', id=id))
+    

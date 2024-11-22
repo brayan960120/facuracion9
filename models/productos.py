@@ -1,9 +1,11 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, update
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import update
+from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
 from src.models.categorias import Categorias 
 
 
-class Productos(Base):
+class Productos(Base,SerializerMixin):
     __tablename__ = 'productos'
     id = Column(Integer, primary_key=True)
     descripcion = Column(String(300), unique=True, nullable=False)
@@ -34,5 +36,26 @@ class Productos(Base):
         session.delete(producto)
         session.commit()
         return producto
+    
+    def actualizar_producto(producto):
+        producto_modificar = session.query(Productos).get(producto.id)
+        producto_modificar.descripcion = producto.descripcion
+        producto_modificar.valor_unitario = producto.valor_unitario
+        producto_modificar.unidad_medida = producto.unidad_medida
+        producto_modificar.cantida_stock = producto.cantida_stock
+        producto_modificar.categoria = producto.categoria
+
+
+
+        session.commit()      
+        return producto
+    
+    def obtener_producto_por_id(id):
+        producto = session.query(Productos).get(id)
+        return producto.to_dict()
+    
+
+    
+
     
     
