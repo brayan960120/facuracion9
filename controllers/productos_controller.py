@@ -65,7 +65,7 @@ class ProductosController(FlaskController):
 
         # Actualizar el producto en la base de datos
             producto_modificar = Productos(descripcion,valor_unitario,unidad_medida,cantida_stock,categoria)
-            Productos.actualizar_producto(producto_modificar)
+            Productos.actualizar_tabla(producto_modificar)
             
             return redirect(url_for('ver_productos'))
     

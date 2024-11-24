@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
 from src.models.categorias import Categorias
+from sqlalchemy import Connection
 
 
 
@@ -54,6 +55,12 @@ class Productos(Base,SerializerMixin):
         producto = session.query(Productos).get(id)
         return producto.to_dict()
     
+    def actualizar_tabla():
+        cursor = Connection.cursor
+        query = """UPDATE Productos set (descripcion,valor_unitario,unidad_medida,cantida_stock,categoria) values ('{producto_modificar.descripcion}','{producto_modificar.valor_unitario}','{producto_modificar.unidad_medida}',
+        '{producto_modificar.cantida_stock}','{producto_modificar.categoria}') """
+        cursor.execute(query)
+        cursor.close()
 
     
 
