@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String
 from src.models import session, Base
+from flask_login import UserMixin
 
-class Usuarios(Base):
+class Usuarios(Base, UserMixin):
     __tablename__ = "usuarios"
     id = Column(Integer, primary_key=True)
     nombre_completo = Column(String(200))
@@ -30,4 +31,14 @@ class Usuarios(Base):
         session.commit()
         return usuario
        
+    def validar_usuario(email, contraseña):
+        usuario_valido = session.query(Usuarios).filter_by(email=email).first()
+        if usuario_valido:
+            if usuario_valido.contraseña == contraseña:
+                return usuario_valido
+        return False
+        
+    def obtener_usuario_por_id(id):
+        usuario = session.query(Usuarios).get(id)
+        return usuario
    
