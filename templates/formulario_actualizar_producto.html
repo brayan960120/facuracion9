@@ -13,12 +13,16 @@
 <form action="actualizar_producto" method="post">
   <div class="form-row">
     <div class="form-group col-md-6">
+      <label for="id">Id producto</label>
+      <input value= {{producto.id}} type="text" class="form-control" id="id" name="id"  readonly >
+    </div>
+    <div class="form-group col-md-6">
       <label for="descripcion">Descripción Producto</label>
-      <input value= {{producto_modificar.descripcion}} type="text" class="form-control" id="descripcion" name="descripcion"  placeholder="Descripción Producto" >
+      <input value= {{producto.descripcion}} type="text" class="form-control" id="descripcion" name="descripcion"  placeholder="Descripción Producto" >
     </div>
     <div class="form-group col-md-6">
       <label for="valor_unitario">Valor Unitario</label>
-      <input value= {{producto_modificar.valor_unitario}} type="text" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
+      <input value= {{producto.valor_unitario}} type="text" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
     </div>
     
 
@@ -26,7 +30,7 @@
   
   <div class="form-group col-md-6">
     <label for="unidad_medida">Unidad de Medida</label>
-    <select value= {{producto_modificar.unidad_medida}} id="unidad_medida" name="unidad_medida" class="form-control" >
+    <select value= {{producto.unidad_medida}} id="unidad_medida" name="unidad_medida" class="form-control" >
         <option selected>{{producto.unidad_medida}}</option>
         <option value="GRS">GRS</option>
         <option value="UND">UND</option>
@@ -36,17 +40,17 @@
   
   <div class="form-group col-md-6">
     <label for="cantida_stock">Cantidad Stock</label>
-    <input value= {{producto_modificar.cantida_stock}} type="text" class="form-control" id="cantida_stock" name="cantida_stock" placeholder="Cantidad en Stock">
+    <input value= {{producto.cantida_stock}} type="text" class="form-control" id="cantida_stock" name="cantida_stock" placeholder="Cantidad en Stock">
   </div>
 
   <div class="form-group col-md-6">
     <label for="categoria">Categoria</label>
     <select id="categoria" name="categoria" class="form-control">
-        <option selected>{{producto.categoria}}</option>
-        {% for categoria in categoria %}
-          <option value={{producto_modificar.categoria}}>{{categoria.categoria}}</option>
-        {% endfor %}
-      <option>...</option>
+      <option selected>Seleccione...</option>
+      {% for categoria in categoria %}
+        <option {% if categoria.id == producto.categoria %} selected {% endif %} value={{categoria.id}}>{{categoria.categoria}}</option>
+      {% endfor %}
+    <option>...</option>
     </select>
   </div>
   

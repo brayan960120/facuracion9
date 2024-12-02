@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
 from src.models.categorias import Categorias
+from sqlalchemy import update
 
 
 
@@ -37,16 +38,16 @@ class Productos(Base,SerializerMixin):
         session.commit()
         return producto
     
-    def actualizar_producto(producto):
+    def actualizar_producto(producto,id):
+        print ("modelo producto ", id)
+        producto_modificar = session.query(Productos).get(id)
         
-        producto_modificar = session.query(Productos).get(producto.id)
-        producto_modificar = Productos
+
+    
         producto_modificar.descripcion = producto.descripcion
         producto_modificar.valor_unitario = producto.valor_unitario
         producto_modificar.unidad_medida = producto.unidad_medida
         producto_modificar.cantida_stock = producto.cantida_stock
-        producto_modificar.categoria = producto.categoria
-        
         session.commit()      
         return producto
     

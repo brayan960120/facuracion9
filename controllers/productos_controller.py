@@ -52,10 +52,12 @@ class ProductosController(FlaskController):
         if request.method == 'GET':
         # Lógica para mostrar el formulario de edición con los datos actuales del producto
             producto= Productos.obtener_producto_por_id(id)
-            return render_template('formulario_actualizar_producto.html',titulo_pagina = 'Actualizar Productos', producto=producto)
+            categoria = Categorias.obtener_categorias()
+            return render_template('formulario_actualizar_producto.html',titulo_pagina = 'Actualizar Productos', producto=producto, categoria=categoria)
 
         if request.method == 'POST':
         # Lógica para procesar la actualización del 
+            id_producto = request.form.get('id')    
             descripcion = request.form.get('descripcion')    
             valor_unitario = request.form.get('valor_unitario')    
             unidad_medida = request.form.get('unidad_medida')    
@@ -65,7 +67,8 @@ class ProductosController(FlaskController):
 
         # Actualizar el producto en la base de datos
             producto_modificar = Productos(descripcion,valor_unitario,unidad_medida,cantida_stock,categoria)
-            Productos.actualizar_producto(producto_modificar)
+            Productos.actualizar_producto(producto_modificar,id_producto)
+            
             
             return redirect(url_for('ver_productos'))
     
