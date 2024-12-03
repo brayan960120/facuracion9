@@ -26,6 +26,19 @@ class Categorias(Base):
         session.commit()
         return categoria
     
+    def obtener_categoria_por_id(id):
+        categoria = session.query(Categorias).get(id)
+        return categoria
+    
+
+    def actualizar_categoria(categoria,id):
+        categoria_modificar = session.query(Categorias).get(id)
+        
+
+        categoria_modificar.categoria = categoria.categoria
+        session.commit()      
+        return categoria
+    
 
     
     

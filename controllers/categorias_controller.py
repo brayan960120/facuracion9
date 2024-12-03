@@ -27,3 +27,24 @@ class CategoriasController(FlaskController):
         Categorias.eliminar_categoria(id)
         categorias = Categorias.obtener_categorias()
         return render_template('tabla_categorias.html', titulo_pagina = 'Ver categorias', categorias=categorias)
+    
+
+    @app.route('/actualizar_categoria/<id>', methods=['GET', 'POST'])
+    def actualizar_categoria(id):
+        if request.method == 'GET':
+        # Lógica para mostrar el formulario de edición con los datos actuales del producto
+            categoria= Categorias.obtener_categoria_por_id(id)
+            return render_template('formulario_actualizar_categoria.html',titulo_pagina = 'Actualizar Categorias', categoria=categoria)
+
+        if request.method == 'POST':
+        # Lógica para procesar la actualización del 
+            id_categoria = request.form.get('id')       
+            categoria = request.form.get('categoria')
+            
+
+        # Actualizar el producto en la base de datos
+            categoria_modificar = Categorias(categoria)
+            Categorias.actualizar_categoria(categoria_modificar,id_categoria)
+            
+            
+            return redirect(url_for('ver_categorias'))

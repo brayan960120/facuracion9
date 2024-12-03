@@ -41,4 +41,17 @@ class Usuarios(Base, UserMixin):
     def obtener_usuario_por_id(id):
         usuario = session.query(Usuarios).get(id)
         return usuario
+    
+    def actualizar_usuario(usuario,id):
+        
+        usuario_modificar = session.query(Usuarios).get(id)
+        
+
+    
+        usuario_modificar.nombre_completo = usuario.nombre_completo
+        usuario_modificar.email = usuario.email
+        usuario_modificar.contraseña = usuario.contraseña
+        usuario_modificar.rol = usuario.rol
+        session.commit()      
+        return usuario
    

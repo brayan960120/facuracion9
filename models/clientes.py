@@ -35,7 +35,7 @@ class Clientes(Base, SerializerMixin):
     
     def obtener_cliente_por_numero_identificacion(numero_identificacion):
         cliente = session.query(Clientes).filter(Clientes.numero_identificacion == numero_identificacion).first()
-        print(cliente)
+        
         return cliente.to_dict()
     
     def eliminar_cliente(id):
@@ -43,3 +43,17 @@ class Clientes(Base, SerializerMixin):
         session.delete(cliente)
         session.commit()
         return cliente
+    
+    def actualizar_cliente(cliente,id):
+        cliente_modificar = session.query(Clientes).get(id)
+        
+
+        cliente_modificar.numero_identificacion = cliente.numero_identificacion
+        cliente_modificar.nombre_completo = cliente.nombre_completo
+        cliente_modificar.direccion = cliente.direccion
+        cliente_modificar.telefono = cliente.telefono
+        cliente_modificar.email = cliente.email
+
+        session.commit()      
+        return cliente
+    
