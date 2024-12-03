@@ -43,7 +43,7 @@ class CategoriasController(FlaskController):
             
 
         # Actualizar el producto en la base de datos
-            categoria_modificar = Categorias(categoria)
+            categoria_modificar= Categorias(categoria)
             Categorias.actualizar_categoria(categoria_modificar,id_categoria)
             
             

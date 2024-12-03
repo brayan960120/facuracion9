@@ -48,6 +48,7 @@ class Productos(Base,SerializerMixin):
         producto_modificar.valor_unitario = producto.valor_unitario
         producto_modificar.unidad_medida = producto.unidad_medida
         producto_modificar.cantida_stock = producto.cantida_stock
+        producto_modificar.categoria = producto.categoria
         session.commit()      
         return producto
     

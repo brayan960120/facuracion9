@@ -56,3 +56,32 @@ class FacturasController(FlaskController):
         Facturas.eliminar_factura(id)
         facturas = Facturas.obtener_facturas()
         return render_template('tabla_facturas.html', titulo_pagina = 'Ver facturas', facturas = facturas)
+    
+    @app.route('/actualizar_factura/<id>', methods=['GET', 'POST'])
+    def actualizar_factura(id):
+        if request.method == 'GET':
+        # Lógica para mostrar el formulario de edición con los datos actuales del producto
+            factura = Facturas.obtener_factura_por_id(id)
+            cliente = Clientes.obtener_clientes()
+            usuario = Usuarios.obtener_usuarios()
+            return render_template('formulario_actualizar_factura.html',titulo_pagina = 'Actualizar Facturas', factura = factura , cliente = cliente, usuario = usuario)
+
+        if request.method == 'POST':
+        # Lógica para procesar la actualización del 
+            id_factura = request.form.get('id')    
+            numero_factura = request.form.get('numero_factura')    
+            fecha_factura = request.form.get('fecha_factura')    
+            cedula_cliente = request.form.get('cedula_cliente')    
+            nombre_completo = request.form.get('nombre_completo')    
+            direccion= request.form.get('direccion')
+            telefono = request.form.get('telefono')    
+            email = request.form.get('email')    
+            id_cliente= request.form.get('id_cliente')
+            id_usuario= request.form.get('id_usuario')
+
+        # Actualizar el producto en la base de datos
+            factura_modificar = Facturas(numero_factura,fecha_factura,cedula_cliente,nombre_completo,direccion,telefono,email,id_cliente,id_usuario)
+            Facturas.actualizar_factura(factura_modificar,id_factura)
+            
+            
+            return redirect(url_for('ver_facturas'))

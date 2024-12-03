@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form action="actualizar_factura" method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="id">Id factura</label>
+            <input value= {{factura.id}} type="text" class="form-control" id="id" name="id"  readonly >
+        </div>
+        <div class="form-group col-md-6">
+            <label for="numero_factura">Numero de factura</label>
+            <input value= {{factura.numero_factura}} type="text" class="form-control" id="numero_factura" name="numero_factura" placeholder="000001">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="fecha_factura">Fecha factura</label>
+            <input value= {{factura.fecha_factura}} type="text" class="form-control" id="fecha_factura" name="fecha_factura" placeholder="00/00/0000">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="cedula_cliente">Cedula cliente</label>
+            <input value= {{factura.cedula_cliente}} type="text" class="form-control" id="cedula_cliente" name="cedula_cliente" placeholder="123456789">
+        </div>
+        
+        <div class="form-group col-md-6">
+            <label for="nombre_completo">Nombre completo</label>
+            <input value= {{factura.nombre_completo}} type="text" class="form-control" id="nombre_completo" name="nombre_completo" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="direccion">Direccion</label>
+            <input value= {{factura.direccion}} type="text" class="form-control" id="direccion" name="direccion" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="telefono">Telefono</label>
+            <input value= {{factura.telefono}} type="text" class="form-control" id="telefono" name="telefono" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input value= {{factura.email}} type="text" class="form-control" id="email" name="email" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="id_cliente">Id cliente</label>
+            <input value= {{factura.id_cliente}} type="hidden" id="id_cliente" name="id_cliente" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="id_usuario">Vendedor</label>
+            <select id="id_usuario" name="id_usuario" class="form-control">
+              <option selected value="">Seleccione...</option>
+              {% for usuario in usuario %}
+                <option value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>  
+    </div>
+
+    
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+<script>
+    
+    $("#cedula_cliente").change(function(){
+        value = $(this).val();
+        alert("cambio el numero, ahora es: " + value)
+        $.ajax({
+            type: "GET",
+            url: "/consultar_cliente_numero_identificacion/" + value,
+            contentType: "application/json",
+            dataType: 'json',
+            success:function(result) {
+                console.log("Result:");
+                console.log(result);
+                $('#nombre_completo').val(result.nombre_completo);
+                $('#direccion').val(result.direccion);
+                $('#telefono').val(result.telefono);
+                $('#id_cliente').val(result.id);
+                $('#email').val(result.email);
+            } 
+        });
+    });
+
+</script>
+{% endblock contenido %}

@@ -47,3 +47,26 @@ class Facturas(Base):
         session.delete(factura)
         session.commit()
         return factura
+    
+    def obtener_factura_por_id(id):
+        factura = session.query(Facturas).get(id)
+        return factura
+    
+    def actualizar_factura(factura,id):
+        factura_modificar = session.query(Facturas).get(id)
+        
+
+    
+        factura_modificar.numero_factura = factura.numero_factura
+        factura_modificar.fecha_factura = factura.fecha_factura
+        factura_modificar.cedula_cliente = factura.cedula_cliente
+        factura_modificar.nombre_completo = factura.nombre_completo
+        factura_modificar.direccion = factura.direccion
+        factura_modificar.telefono = factura.telefono
+        factura_modificar.email= factura.email
+        factura_modificar.id_cliente = factura.id_cliente
+        factura_modificar.id_usuario = factura.id_usuario
+
+        session.commit()      
+        return factura
+    
