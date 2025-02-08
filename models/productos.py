@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
-from src.models.categorias import Categorias
 from sqlalchemy import update
+from src.models.categorias import Categorias
 
 
 
@@ -55,6 +55,25 @@ class Productos(Base,SerializerMixin):
     def obtener_producto_por_id(id):
         producto = session.query(Productos).get(id)
         return producto.to_dict()
+    
+    def categoria_existe(categoria):
+        categoria = session.query(Categorias).filter(Categorias.categoria == Productos.categoria).first()
+        return categoria
+
+    
+    
+    
+    """def comprar():
+        producto = session.query(Productos).get(id)   
+        return producto"""
+
+
+    
+    
+
+    
+
+    
     
 
     

@@ -5,7 +5,7 @@ from src.models import session, Base
 class Categorias(Base):
     __tablename__ = "categorias"    
     id = Column(Integer, primary_key=True)
-    categoria = Column(String(300), unique=True, nullable=False)
+    categoria = Column(String(300), nullable=False)
 
     def __init__(self, categoria):
         self.categoria = categoria
@@ -26,20 +26,29 @@ class Categorias(Base):
         session.commit()
         return categoria
     
+        
     def obtener_categoria_por_id(id):
         categoria = session.query(Categorias).get(id)
         return categoria
     
 
+    
     def actualizar_categoria(categoria,id):
+        print ("modelo categoria ", id)
         categoria_modificar = session.query(Categorias).get(id)
-        
-
         categoria_modificar.categoria = categoria.categoria
         session.commit()      
         return categoria
     
+    
 
+
+
+    
+
+    
+    
+    
     
     
     

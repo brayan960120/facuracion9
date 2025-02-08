@@ -15,8 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/">FacturApp</a>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" >
+        <a class="navbar-brand" href="#">FacturApp</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -78,10 +79,16 @@
                   <a class="dropdown-item" href="/ver_clientes">Lista clientes</a>
                 </div>
               </li>
+              <li class="nav-item dropdown" style="position: absolute;right: 0;">
+                <div ></div>
+                  <a class="btn btn-primary" href="/logout" role="button">cerrar sesion</a>
+                </div>
+              </li>
             </li>
           </ul>
         </div>
       </nav> 
+    </div>
       
       {% block contenido %}
       {% endblock %}

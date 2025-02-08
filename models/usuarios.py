@@ -1,20 +1,26 @@
 from sqlalchemy import Column, Integer, String
 from src.models import session, Base
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+import psycopg2
+
+
 
 class Usuarios(Base, UserMixin):
     __tablename__ = "usuarios"
     id = Column(Integer, primary_key=True)
     nombre_completo = Column(String(200))
     email = Column(String(500), unique=True, nullable=False)
-    contraseña = Column(String(30),unique=True, nullable=False)
+    contraseña = Column(String(30), nullable=False)
     rol = Column(String(30), nullable=False)
+   
 
     def __init__(self, nombre_completo, email, contraseña, rol):
         self.nombre_completo = nombre_completo
         self.email = email
         self.contraseña = contraseña
         self.rol = rol
+        
 
     def obtener_usuarios():
         usuarios = session.query(Usuarios).all()
@@ -55,3 +61,8 @@ class Usuarios(Base, UserMixin):
         session.commit()      
         return usuario
    
+    
+    def email_existe(email):
+        usuario = session.query(Usuarios).filter(Usuarios.email == email).first()
+        return usuario
+    

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Numero factura</th>
+      <th scope="col">Precio unitario</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio total</th>    
+      <th scope="col">Id producto</th>   
+      <th scope="col">Id usuario</th> 
+      <th scope="col">Acciones</th>     
+    </tr>
+  </thead>
+  <tbody>
+      {% for compra in compras %}
+        <tr>
+          <th scope="row">{{compras.id}}</th>
+          <td>{{compra.Compras.numero_factura}}</td>
+          <td>{{compra.Compras.precio_unitario}}</td>
+          <td>{{compra.Compras.cantidad}}</td>
+          <td>{{compra.Compras.precio_total}}</td>
+          <td>{{factura.Productos.descripcion}}</td>
+          <td>{{factura.Usuarios.nombre_completo}}</td>
+          <td> 
+            <a class="btn btn-danger" href="#">Eliminar</a>
+            <a class="btn btn-success" href="#">Editar</a>
+          </td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock contenido %}    

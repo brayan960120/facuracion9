@@ -11,6 +11,9 @@
       <th scope="col">Cantidad en Stock</th>      
       <th scope="col">Categoria</th>
       <th scope="col">Acciones</th>
+      <th scope="col">Comprar</th>
+      <th scope="col">Cantidad requerida</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -25,6 +28,13 @@
         <td> 
           <a class="btn btn-danger" href="/eliminar_producto/{{producto.Productos.id}}">Eliminar</a>
           <a class="btn btn-success" href="/actualizar_producto/{{producto.Productos.id}}">Editar</a>
+        </td>
+        <td>
+          <a class="btn btn-primary" href="/comprar2/{{producto.Productos.id}}">comprar</a>
+
+        </td>
+        <td>
+          <input type="number" id="cantidad" name="cantidad" min="10" max="100" />
         </td>
       </tr>
       {% endfor %}    

@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form action="comprar2" method="post" id="form">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="id">Id producto</label>
+            <input value={{producto.id}}  type="text" class="form-control" id="id" name="id"  readonly >
+        </div>
+        <div class="form-group col-md-6">
+            <label for="precio_unitario">Valor unitario</label>
+            <input value={{producto.valor_unitario}} type="text" class="form-control" id="precio_unitario" name="precio_unitario" placeholder="Precio unitario" required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="cantidad">cantidad requerida</label>
+            <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="valor_total">Valor total</label>
+          <input  type="text" class="form-control" id="valor_total" name="valor_total" required readonly>
+        </div>
+        
+        <div class="form-group col-md-6">
+            <label for="id_usuario">Vendedor</label>
+            <select id="id_usuario" name="id_usuario" class="form-control">
+              <option selected value="">Seleccione...</option>
+              {% for usuario in usuarios %}
+                <option value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
+              {% endfor %}
+            </select>
+        </div>  
+
+        <div class="form-group col-md-6">
+            <label for="numero_factura">numero de factura</label>
+            <input type="text" class="form-control" id="numero_factura" name="numero_factura" required>
+        </div>
+    </div>
+
+    
+    <button type="submit" id="multiplicar" class="btn btn-primary">Calcular</button>
+</form>
+
+<hr>
+
+precio_unitario:  $ <span  id="resultPrice"></span>
+<br><br>
+cantidad:  <span id="resultCant">-</span>
+<br><br>
+precio_final:  $ <span id="resultFinalPrice">-</span>
+
+
+<script>
+
+  const precio_unitario = document.querySelector('[name = "precio_unitario"]');
+  const cantidad = document.querySelector('[name = "cantidad"]');
+  const form = document.querySelector('#form');
+
+  const label_result_price = document.querySelector('#resultPrice');
+  const label_result_cant = document.querySelector('#resultCant');
+  const label_result_final_price = document.querySelector('#resultFinalPrice');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let precio_unitarioValue = parseFloat(precio_unitario.value);
+    let cantidadValue = parseFloat(cantidad.value);
+
+    let resultFinalPrice = precio_unitarioValue * cantidad.value;
+    
+    label_result_price.innerHTML = precio_unitarioValue;
+    label_result_cant.innerHTML = cantidadValue
+    
+    label_result_final_price.innerHTML = resultFinalPrice;
+    
+  })
+
+  $(document).ready(function(){
+    $("#multiplicar").on("click", funcionManejadora);
+
+    function funcionManejadora(){
+      $("#valor_total").val($("#precio_unitario").val() * $("#cantidad").val());
+    }
+  })
+  
+</script>
+<br><br>
+
+<a href="/crear_factura">Facturar</a>""""
+
+
+{% endblock contenido %}

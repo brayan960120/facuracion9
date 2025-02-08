@@ -57,3 +57,7 @@ class Clientes(Base, SerializerMixin):
         session.commit()      
         return cliente
     
+    def email_existe(email):
+        cliente = session.query(Clientes).filter(Clientes.email == email).first()
+        return cliente
+    
