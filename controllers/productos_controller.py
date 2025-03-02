@@ -4,6 +4,7 @@ from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.categorias import Categorias
 from src.models.usuarios import Usuarios
+from src.models.detalle_facturas import DetalleFacturas
 
 
 
@@ -80,18 +81,24 @@ class ProductosController(FlaskController):
                 return redirect(url_for('ver_productos'))
         return render_template('formulario_login.html', titulo_pagina = 'login')
         
-    @app.route('/comprar2/<id>', methods=['GET', 'POST'])
+   
+    
+    @app.route('/comprar/<id>', methods=['GET', 'POST'])
     def comprar(id):
-            producto= Productos.obtener_producto_por_id(id)
-            usuarios = Usuarios.obtener_usuarios()
-            return render_template('comprar2.html', producto= producto, usuarios = usuarios)
-    
-#aca el controlador tengo que hacer el modelo
-    
-   # @app.route('/facturar/<id>', methods=['GET', 'POST'])
-    #def Facturar(id):
-            producto= Productos.obtener_producto_por_id(id)
-            usuarios = Usuarios.obtener_usuarios()
-            return render_template('facturar.html', producto= producto, usuarios = usuarios)
-    
-    
+        if 'email' in session:
+            if request.method == 'GET':
+        # Lógica para mostrar el formulario de edición con los datos actuales del producto
+                producto= Productos.obtener_producto_por_id(id)
+                categoria = Categorias.obtener_categorias()
+                return render_template('formulario_compras.html',titulo_pagina = 'Actualizar Productos', producto=producto, categoria=categoria)
+
+            if request.method == 'POST':
+                valor_unitario = request.form.get('precio_unitario')
+                cantidad= request.form.get('cantidad') 
+                valor_total = request.form.get('precio_total')       
+                id_producto= request.form.get('id_producto')  
+                id_usuario = request.form.get('id_usuario')
+            
+                compra = Compras(valor_unitario, cantidad,valor_total, id_producto, id_usuario)
+                Compras.agregar_compras(compra,id_producto)
+                return redirect(url_for('/comprar'))

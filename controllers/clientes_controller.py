@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.clientes import Clientes
 from flask import session
+from src.models.facturas import Facturas
 
 class ClientesController(FlaskController):
     @app.route('/crear_cliente', methods=['POST','GET'])
@@ -52,9 +53,14 @@ class ClientesController(FlaskController):
     
     @app.route('/eliminar_clientes/<id>')
     def eliminar_cliente(id):
-        Clientes.eliminar_cliente(id)
-        clientes = Clientes.obtener_clientes()
-        return render_template('tabla_clientes.html', titulo_pagina = 'ver clientes', clientes = clientes)
+        if Facturas.obtener_facturas_por_cliente(id):
+            flash('No se puede eliminar el cliente porque tiene facturas asociadas')
+            clientes = Clientes.obtener_clientes()
+            return render_template('tabla_clientes.html', titulo_pagina= 'Ver clientes', clientes=clientes)
+        else:
+            Clientes.eliminar_cliente(id)
+            clientes = Clientes.obtener_clientes()
+            return render_template('tabla_clientes.html', titulo_pagina='Ver clientes', clientes=clientes)
     
     
     @app.route('/actualizar_cliente/<id>', methods=['GET', 'POST'])

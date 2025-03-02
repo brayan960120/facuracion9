@@ -56,10 +56,12 @@ class Productos(Base,SerializerMixin):
         producto = session.query(Productos).get(id)
         return producto.to_dict()
     
-    def categoria_existe(categoria):
-        categoria = session.query(Categorias).filter(Categorias.categoria == Productos.categoria).first()
-        return categoria
-
+    def obtener_categorias_por_producto(id):
+        productos = session.query(Productos).filter_by(categoria=id).all()
+        return productos
+    def comprar(id):
+        producto = session.query(Productos).get(id)
+        return producto
     
     
     

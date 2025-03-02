@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Valor unitario</th>
+      <th scope="col">Cantidad requerida</th>
+      <th scope="col">Precio total</th>    
+      <th scope="col">Id producto</th>   
+      <th scope="col">Id usuario</th> 
+      <th scope="col">Acciones</th>     
+    </tr>
+  </thead>
+  <tbody>
+      {% for detalle_factura in detalle_facturas  %}
+        <tr>
+          <th scope="row">{{detalle_factura.DetalleFacturas.id}}</th>
+          <td>{{detalle_factura.DetalleFacturas.valor_unitario}}</td>
+          <td>{{detalle_factura.DetalleFacturas.cantidad}}</td>
+          <td>{{detalle_factura.DetalleFacturas.valor_total}}</td>
+          <td>{{detalle_factura.Productos.id}}</td>
+          <td>{{detalle_factura.Usuarios.nombre_completo}}</td>
+          <td> 
+            <a class="btn btn-danger" href="/eliminar_detalle_factura/{{detalle_factura.DetalleFacturas.id}}">Eliminar</a>
+            <a class="btn btn-success" href="/actualizar_detalle_factura/{{detalle_factura.DetalleFacturas.id}}">Editar</a>
+            <a class="btn btn-warning" href="/crear_factura/{{detalle_factura.DetalleFacturas.id}}">Facturar</a>
+          </td>
+        </tr>
+      {% endfor %}    
+  </tbody>
+</table>
+{% endblock contenido %}    

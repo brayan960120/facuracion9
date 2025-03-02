@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.categorias import Categorias
 from flask import session
+from src.models.productos import Productos
 
 class CategoriasController(FlaskController):
     @app.route('/crear_categoria', methods=['POST','GET'])
@@ -28,12 +29,17 @@ class CategoriasController(FlaskController):
         return render_template('formulario_login.html', titulo_pagina = 'Login')
     
     
+     
     @app.route('/eliminar_categorias/<id>')
     def eliminar_categoria(id):
-        Categorias.eliminar_categoria(id)
-        categorias = Categorias.obtener_categorias()
-        return render_template('tabla_categorias.html', titulo_pagina = 'Ver categorias', categorias=categorias)
-    
+        if Productos.obtener_categorias_por_producto(id):
+            flash('No se puede eliminar la categoria porque tiene productos asociados')
+            categorias = Categorias.obtener_categorias()
+            return render_template('tabla_categorias.html', titulo_pagina= 'Ver categorias', categorias=categorias)
+        else:
+            Categorias.eliminar_categoria(id)
+            categorias = Categorias.obtener_categorias()
+            return render_template('tabla_categorias.html', titulo_pagina='Ver categorias', categorias=categorias)
 
     @app.route('/actualizar_categoria/<id>', methods=['GET', 'POST'])
     def actualizar_categoria(id):

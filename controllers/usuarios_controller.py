@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.usuarios import Usuarios
 from src.models.clientes import Clientes
+from src.models.facturas import Facturas
 from flask import session
 
 
@@ -44,10 +45,14 @@ class UsuariosController(FlaskController):
     
     @app.route('/eliminar_usuario/<id>')
     def eliminar_usuario(id):
-        Usuarios.eliminar_usuario(id)
-        usuarios = Usuarios.obtener_usuarios()
-        return render_template('tabla_usuarios.html', titulo_pagina = 'Ver Usuarios', usuarios=usuarios)
-    
+        if Facturas.obtener_facturas_por_usuario(id):
+            flash('No se puede eliminar el usuario porque tiene facturas asociadas')
+            usuarios = Usuarios.obtener_usuarios()
+            return render_template('tabla_usuarios.html', titulo_pagina= 'Ver Usuarios', usuarios=usuarios)
+        else:
+            Usuarios.eliminar_usuario(id)
+            usuarios = Usuarios.obtener_usuarios()
+            return render_template('tabla_usuarios.html', titulo_pagina='Ver Usuarios', usuarios=usuarios)
 
     @app.route('/actualizar_usuario/<id>', methods=['GET', 'POST'])
     def actualizar_usuario(id):
