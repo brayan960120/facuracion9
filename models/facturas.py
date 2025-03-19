@@ -92,3 +92,4 @@ class Facturas(Base):
     def obtener_facturas_por_detalle_factura(id):
         factura = session.query(Facturas).filter_by(id_detalle_factura=id).first()
         return factura
+    

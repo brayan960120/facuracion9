@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.productos import Productos
 from src.models.usuarios import Usuarios
+from src.models.facturas import Facturas
 from src.models.detalle_facturas import DetalleFacturas
 from flask import session
 
@@ -39,9 +40,14 @@ class DetalleFacturasController(FlaskController):
             
     @app.route('/eliminar_detalle_factura/<id>')
     def eliminar_detalle_factura(id):
-        DetalleFacturas.eliminar_detalle_factura(id)
-        detalle_facturas= DetalleFacturas.obtener_detalle_facturas()
-        return render_template('tabla_detalle_facturas.html', titulo_pagina = 'Ver facturas', detalle_facturas = detalle_facturas)
+        if Facturas.obtener_facturas_por_detalle_factura(id):
+            flash('No se puede eliminar la compra porque tiene facturas asociadas.')
+            detalle_facturas = DetalleFacturas.obtener_detalle_facturas()
+            return render_template('tabla_detalle_facturas.html', titulo_pagina= 'Ver Detalles de Facturas', detalle_facturas=detalle_facturas)
+        else:
+            DetalleFacturas.eliminar_detalle_factura(id)
+            detalle_facturas= DetalleFacturas.obtener_detalle_facturas()
+            return render_template('tabla_detalle_facturas.html',  titulo_pagina= 'Ver Detalles de Facturas', detalle_facturas = detalle_facturas)
     
 
     @app.route('/actualizar_detalle_factura/<id>', methods=['GET', 'POST'])

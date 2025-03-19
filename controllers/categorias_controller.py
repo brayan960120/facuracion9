@@ -33,7 +33,7 @@ class CategoriasController(FlaskController):
     @app.route('/eliminar_categorias/<id>')
     def eliminar_categoria(id):
         if Productos.obtener_categorias_por_producto(id):
-            flash('No se puede eliminar la categoria porque tiene productos asociados')
+            flash('No se puede eliminar la categoria porque tiene productos asociados.')
             categorias = Categorias.obtener_categorias()
             return render_template('tabla_categorias.html', titulo_pagina= 'Ver categorias', categorias=categorias)
         else:
@@ -48,7 +48,8 @@ class CategoriasController(FlaskController):
         # Lógica para mostrar el formulario de edición con los datos actuales del producto
                 categoria= Categorias.obtener_categoria_por_id(id)
                 categorias = Categorias.obtener_categorias()
-                return render_template('formulario_actualizar_categoria.html',titulo_pagina = 'Actualizar categoria', categorias= categorias, categoria=categoria)
+                producto = Productos.obtener_productos()
+                return render_template('formulario_actualizar_categoria.html',titulo_pagina = 'Actualizar categoria', categorias= categorias, categoria=categoria, producto=producto)
 
             if request.method == 'POST':
         # Lógica para procesar la actualización del 

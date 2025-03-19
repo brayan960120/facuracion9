@@ -54,7 +54,7 @@ class ClientesController(FlaskController):
     @app.route('/eliminar_clientes/<id>')
     def eliminar_cliente(id):
         if Facturas.obtener_facturas_por_cliente(id):
-            flash('No se puede eliminar el cliente porque tiene facturas asociadas')
+            flash('No se puede eliminar el cliente porque tiene facturas asociadas.')
             clientes = Clientes.obtener_clientes()
             return render_template('tabla_clientes.html', titulo_pagina= 'Ver clientes', clientes=clientes)
         else:
