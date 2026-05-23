@@ -1,6 +1,16 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
+
 <table class="table">
   <thead>
     <tr>
@@ -10,9 +20,10 @@
       <th scope="col">Unidad Medida</th>   
       <th scope="col">Cantidad en Stock</th>      
       <th scope="col">Categoria</th>
+      <th scope="col">Total$</th>
       <th scope="col">Acciones</th>
-      <th scope="col">Comprar</th>
-      <th scope="col">Cantidad requerida</th>
+      <!-- <th scope="col">Comprar</th> -->
+      
       
     </tr>
   </thead>
@@ -25,18 +36,51 @@
         <td>{{producto.Productos.unidad_medida}}</td>
         <td>{{producto.Productos.cantida_stock}}</td>
         <td>{{producto.Categorias.categoria}}</td>
+        <td class="numero">{{producto.Productos.valor_unitario * producto.Productos.cantida_stock}}</td>
         <td> 
           <a class="btn btn-danger" href="/eliminar_producto/{{producto.Productos.id}}">Eliminar</a>
           <a class="btn btn-success" href="/actualizar_producto/{{producto.Productos.id}}">Editar</a>
         </td>
-        <td>
+        
+
+
+        <!-- <td>
           <a class="btn btn-primary" href="/compra2/{{producto.Productos.id}}">comprar</a>
 
-        </td>
+        </td>-->
+       
         
       </tr>
-      {% endfor %} 
+     
   </tbody>
+  
+{% endfor %}
+  
+      
 </table>
+
+          
+<p>Total $: <span id="resultado">0</span></p>
+<button onclick="sumarTD()">Sumar TD</button>
+
+
+
+
+
+<script>
+function sumarTD() {
+  let celdas = document.querySelectorAll(".numero");
+  let total = 0;
+
+  celdas.forEach(td => {
+    total += Number(td.textContent);
+  });
+
+  document.getElementById("resultado").textContent = total;
+}
+</script>
+      
+ 
+
 {% endblock contenido %}    
      

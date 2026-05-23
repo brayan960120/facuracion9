@@ -36,7 +36,7 @@ class ClientesController(FlaskController):
         return render_template('formulario_login.html', titulo_pagina = 'Login')
 
     
-    @app.route('/ver_clientes')
+    @app.route('/ver_movimientos')
     def ver_clientes():
         if 'email' in session:
             clientes = Clientes.obtener_clientes()

@@ -22,7 +22,7 @@
     </div>
     <div class="form-group col-md-6">
       <label for="valor_unitario">Valor Unitario</label>
-      <input value= {{producto.valor_unitario}} type="text" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
+      <input value= {{producto.valor_unitario}} type="number" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
     </div>
     
 
@@ -34,6 +34,7 @@
         <option selected>{{producto.unidad_medida}}</option>
         <option value="GRS">GRS</option>
         <option value="UND">UND</option>
+        <option value="LTS">LTS</option>
       <option>...</option>
     </select>
   </div>

@@ -5,10 +5,15 @@ from src.models.productos import Productos
 from src.models.categorias import Categorias
 from src.models.usuarios import Usuarios
 from src.models.detalle_facturas import DetalleFacturas
+from flask_restful import Api
+from src.api.productos_api import ProductosApi
 
 
 
 class ProductosController(FlaskController):
+    api = Api(app)
+   
+    api.add_resource(ProductosApi, '/api/productos')
     @app.route('/crear_producto', methods=['POST','GET'])
     def crear_producto():
         if 'email' in session:
@@ -49,9 +54,14 @@ class ProductosController(FlaskController):
         
     @app.route('/eliminar_producto/<id>')
     def eliminar_producto(id):
-        Productos.eliminar_producto(id)
-        productos = Productos.obtener_productos()
-        return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos)
+        if DetalleFacturas.obtener_detalle_facturas_por_producto(id):
+            flash('No se puede eliminar el producto porque tiene compras asociadas.')
+            productos = Productos.obtener_productos()
+            return render_template('tabla_productos.html', titulo_pagina= 'Ver Productos', productos=productos)
+        else:
+            Productos.eliminar_producto(id)
+            productos = Productos.obtener_productos()
+            return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos)
     
 
     @app.route('/actualizar_producto/<id>', methods=['GET', 'POST'])
