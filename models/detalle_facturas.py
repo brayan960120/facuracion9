@@ -58,6 +58,8 @@ class DetalleFacturas(Base, SerializerMixin):
         factura = session.query(DetalleFacturas).filter_by(id_usuario=id).first()
         return factura
     
-
+    def obtener_detalle_facturas_por_producto(id):
+        detalle_factura = session.query(DetalleFacturas).filter_by(id_producto=id).first()
+        return detalle_factura
     
     

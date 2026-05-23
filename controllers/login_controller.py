@@ -28,3 +28,5 @@ def logout():
     flash('Has salido exitosamente.')
     return redirect(url_for('login'))
 
+
+
