@@ -1,11 +1,16 @@
-from flask import Flask
 from src.models import Base, engine
 from flask_controller import FlaskControllerRegister
 from flask_login import LoginManager
 from src.models.usuarios import Usuarios
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 app.secret_key = "mi llaveria"
 app.debug = True
@@ -22,6 +27,8 @@ login_manager.login_view = 'login'
 @login_manager.user_loader
 def load_user(id_usuario):
     return Usuarios.obtener_usuarios
+
+
 
 
 if __name__ == '__main__':

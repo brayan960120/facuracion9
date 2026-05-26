@@ -46,20 +46,29 @@
             <input value= {{factura.email}} type="text" class="form-control" id="email" name="email" readonly>
         </div>
         <div class="form-group col-md-6">
+            <label for="valor_total">Valor total</label>
+            <input value={{factura.valor_total}}  type="text" class="form-control" id="valor_total" name="valor_total" required readonly>
+        </div>
+        <div class="form-group col-md-6">
             <label for="id_cliente">Id cliente</label>
-            <input value= {{factura.id_cliente}} type="hidden" id="id_cliente" name="id_cliente" readonly>
+            <input value= {{factura.id_cliente}} id="id_cliente"  class="form-control" name="id_cliente" readonly>
         </div>
         <div class="form-group col-md-6">
             <label for="id_usuario">Vendedor</label>
-            <select id="id_usuario" name="id_usuario" class="form-control">
+            <select id="id_usuario" name="id_usuario" class="form-control" required>
               <option selected value="">Seleccione...</option>
               {% for usuario in usuario %}
-                <option value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
+                <option {% if usuario.id == factura.id_usuario %} selected {% endif %} value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
               {% endfor %}
             </select>
           </div>
+          <div class="form-group col-md-6">
+            <label for="id_detalle_factura">Id compra</label>
+            <input value= {{factura.id_detalle_factura}}  id="id_detalle_factura"  class="form-control" name="id_detalle_factura" readonly>
+        </div>
         </div>  
     </div>
+    
 
     
     <button type="submit" class="btn btn-primary">Guardar</button>

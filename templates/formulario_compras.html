@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form action="compra2" method="post" id="form">
+    <div class="form-row">
+        
+        <div class="form-group col-md-6">
+            <label for="valor_unitario">Valor unitario</label>
+            <input   value= {{producto.valor_unitario}} type="text" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Precio unitario">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="cantidad">cantidad requerida</label>
+            <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="valor_total">Valor total</label>
+          <input  type="text" class="form-control" id="valor_total" name="valor_total" required >
+        </div>
+        <div class="form-group col-md-6">
+          <label for="id_producto">Id producto</label>
+          <input type="text" value="{{producto.id}}" class="form-control" id="id_producto" name="id_producto"   >
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="id_usuario">Vendedor</label>
+            <select id="id_usuario" name="id_usuario" class="form-control">
+              <option selected value="">Seleccione...</option>
+          {% for usuario in usuarios %}
+                <option value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
+          {% endfor %}
+            </select>
+  
+        </div>
+
+         
+        
+       
+  
+    </div>
+
+    
+    
+    <button type="submit" class="btn btn-primary">enviar</button>
+    
+   
+</form>
+<hr>
+<button type="submit" id="multiplicar" class="btn btn-primary">Calcular</button>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#multiplicar").on("click", funcionManejadora);
+
+  function funcionManejadora(){
+    $("#valor_total").val($("#valor_unitario").val() * $("#cantidad").val());
+  }
+})</script>
+
+</script>
+
+{% endblock contenido %}

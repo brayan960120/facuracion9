@@ -14,53 +14,63 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="numero_factura">Numero de factura</label>
-            <input type="text" class="form-control" id="numero_factura" name="numero_factura" placeholder="000001">
+            <input type="text" class="form-control" id="numero_factura" name="numero_factura" placeholder="000001" required>
         </div>
         <div class="form-group col-md-6">
             <label for="fecha_factura">Fecha factura</label>
-            <input type="text" class="form-control" id="fecha_factura" name="fecha_factura" placeholder="00/00/0000">
+            <input type="text" class="form-control" id="fecha_factura" name="fecha_factura" placeholder="00/00/0000" required>
         </div>
         <div class="form-group col-md-6">
             <label for="cedula_cliente">Cedula cliente</label>
-            <input type="text" class="form-control" id="cedula_cliente" name="cedula_cliente" placeholder="123456789">
+            <input type="text" class="form-control" id="cedula_cliente" name="cedula_cliente" placeholder="123456789" required>
         </div>
         
         <div class="form-group col-md-6">
             <label for="nombre_completo">Nombre completo</label>
-            <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" readonly>
+            <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" readonly required>
         </div>
         <div class="form-group col-md-6">
             <label for="direccion">Direccion</label>
-            <input type="text" class="form-control" id="direccion" name="direccion" readonly>
+            <input type="text" class="form-control" id="direccion" name="direccion" readonly required>
         </div>
         <div class="form-group col-md-6">
             <label for="telefono">Telefono</label>
-            <input type="text" class="form-control" id="telefono" name="telefono" readonly>
+            <input type="text" class="form-control" id="telefono" name="telefono" readonly required>
         </div>
         <div class="form-group col-md-6">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email" readonly>
+            <input type="text" class="form-control" id="email" name="email" readonly required>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="valor_total">Saldo total</label>
+            <input  type="text"  class="form-control" id="valor_total" name="valor_total" value={{detalle_facturas.valor_total}} required>
         </div>
         <div class="form-group col-md-6">
             <label for="id_cliente">Id cliente</label>
-            <input type="hidden" id="id_cliente" name="id_cliente" readonly>
+            <input type="text" class="form-control" id="id_cliente" name="id_cliente" readonly required>
         </div>
         <div class="form-group col-md-6">
             <label for="id_usuario">Vendedor</label>
-            <select id="id_usuario" name="id_usuario" class="form-control">
+            <select id="id_usuario" name="id_usuario" class="form-control" required>
               <option selected value="">Seleccione...</option>
               {% for usuario in usuarios %}
                 <option value="{{usuario.id}}">{{usuario.nombre_completo}}</option>
               {% endfor %}
             </select>
           </div>
-        </div>  
+          <div class="form-group col-md-6">
+            <label for="id_detalle_factura">Id compra</label>
+            <input value={{detalle_facturas.id}} type="text" class="form-control" id="id_detalle_factura" name="id_detalle_factura" readonly required>
+        </div>
+        </div>
+        
     </div>
-
     
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <button id="enviar"    type="submit" class="btn btn-primary">Guardar</button>
 </form>
 <script>
+
+
     
     $("#cedula_cliente").change(function(){
         value = $(this).val();
@@ -82,5 +92,9 @@
         });
     });
 
+
+  
+
 </script>
 {% endblock contenido %}
+

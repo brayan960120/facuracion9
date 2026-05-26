@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
-from src.models.categorias import Categorias
 from sqlalchemy import update
+from src.models.categorias import Categorias
 
 
 
@@ -10,9 +10,9 @@ class Productos(Base,SerializerMixin):
     __tablename__ = 'productos'
     id = Column(Integer, primary_key=True)
     descripcion = Column(String(300), unique=True, nullable=False)
-    valor_unitario = Column(Float(10,8), nullable=False)
+    valor_unitario = Column(Integer, nullable=False)
     unidad_medida = Column(String(3), nullable=False)
-    cantida_stock = Column(Float(10,8), nullable=False)
+    cantida_stock = Column(Integer, nullable=False)
     categoria = Column(Integer, ForeignKey('categorias.id'), nullable=False)
 
     def __init__(self, descripcion, valor_unitario, unidad_medida, cantida_stock, categoria):
@@ -55,6 +55,42 @@ class Productos(Base,SerializerMixin):
     def obtener_producto_por_id(id):
         producto = session.query(Productos).get(id)
         return producto.to_dict()
+    
+    def obtener_categorias_por_producto(id):
+        productos = session.query(Productos).filter_by(categoria=id).all()
+        return productos
+    def comprar(id):
+        producto = session.query(Productos).get(id)
+        return producto
+
+    
+    
+    
+    """def comprar():
+        producto = session.query(Productos).get(id)   
+        return producto"""
+
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+    
+    
+
+    
+
+    
     
 
     

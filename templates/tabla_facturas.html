@@ -5,31 +5,36 @@
   <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Numero factura</th>
+      <th scope="col">Id compra</th>
       <th scope="col">Fecha factura</th>
       <th scope="col">Cedula cliente</th>
-      <th scope="col">Nombre completo</th>    
+       
       <th scope="col">Direccion</th>
       <th scope="col">Telefono</th>  
-      <th scope="col">Email</th>
-      <th scope="col">Id cliente</th>   
-      <th scope="col">Id usuario</th> 
+      
+      <th scope="col">Valor total</th>
+      <th scope="col">Nombre cliente</th>   
+      <th scope="col">Nombre usuario</th> 
       <th scope="col">Acciones</th>     
     </tr>
   </thead>
   <tbody>
       {% for factura in facturas %}
         <tr>
-          <th scope="row">{{factura.id}}</th>
-          <td>{{factura.Facturas.numero_factura}}</td>
+          <th scope="row">{{factura.Facturas.id}}</th>
+          <td>{{factura.Facturas.id_detalle_factura}}</td>
           <td>{{factura.Facturas.fecha_factura}}</td>
           <td>{{factura.Facturas.cedula_cliente}}</td>
-          <td>{{factura.Facturas.nombre_completo}}</td>
           <td>{{factura.Facturas.direccion}}</td>
           <td>{{factura.Facturas.telefono}}</td>
-          <td>{{factura.Facturas.email}}</td>
+          
+          <td>{{factura.Facturas.valor_total}}</td>
+
           <td>{{factura.Clientes.nombre_completo}}</td>
           <td>{{factura.Usuarios.nombre_completo}}</td>
+          
+         
+          
           <td> 
             <a class="btn btn-danger" href="/eliminar_facturas/{{factura.Facturas.id}}">Eliminar</a>
             <a class="btn btn-success" href="/actualizar_factura/{{factura.Facturas.id}}">Editar</a>
