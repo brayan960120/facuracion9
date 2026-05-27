@@ -1,0 +1,17 @@
+.flashes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    margin: 0;
+    list-style: none;
+    background: #ff4d4d;
+    color: white;
+    z-index: 9999;
+    text-align: center;
+}
+
+.flashes li {
+    margin: 5px 0;
+}
