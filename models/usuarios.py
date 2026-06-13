@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 from src.models import session, Base
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,6 +15,11 @@ class Usuarios(Base, UserMixin):
     email = Column(String(500), unique=True, nullable=False)
     contraseña = Column(String(30), nullable=False)
     rol = Column(String(30), nullable=False)
+    movimientos = relationship(
+        "Movimientos",
+        back_populates="usuario"
+    )
+
    
 
     def __init__(self, nombre_completo, email, contraseña, rol):

@@ -2,7 +2,7 @@ from src.app import app
 from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.usuarios import Usuarios
-from src.models.clientes import Clientes
+from src.models.movimientos import Movimientos
 from src.models.facturas import Facturas
 from flask import session
 

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<form action="{{ url_for('crear_movimiento') }}" method="POST">
+    <table border="1">
+        <tr>
+            <td>
+                <select name="usuario_id" required>
+                    {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">
+                        {{ usuario.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </td>
+
+            <td>
+                <select name="producto_id" required>
+                    {% for producto in productos %}
+                    <option value="{{ producto.id }}">
+                        {{ producto.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </td>
+
+            <td>
+                <input type="number" name="cantidad" required>
+            </td>
+
+            <td>
+                <input type="number" name="valor_unitario" required>
+            </td>
+
+            <td>
+                <select name="tipo_de_movimiento" required>
+                    <option value="entrada">Entrada</option>
+                    <option value="salida">Salida</option>
+                </select>
+            </td>
+
+            <td>
+                <button type="submit">Guardar</button>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock contenido %}
+       

@@ -34,7 +34,7 @@ class ProductosController(FlaskController):
                     Productos.agregar_producto(producto)
                     return redirect(url_for('ver_productos'))
             categoria = Categorias.obtener_categorias()
-            return render_template('formulario_crear_producto.html', titulo_pagina = 'Crear Producto', categoria=categoria)
+            return render_template('formulario_crear_producto.html', titulo_pagina = 'Crear Producto', categoria=categoria, tipo_de_movimiento= 'entrada')
         return render_template('formulario_login.html', titulo_pagina = 'Login')
     
 
@@ -51,7 +51,7 @@ class ProductosController(FlaskController):
     def eliminar_producto(id):
         Productos.eliminar_producto(id)
         productos = Productos.obtener_productos()
-        return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos)
+        return render_template('tabla_productos.html', titulo_pagina = 'Ver Productos', productos=productos, tipo_de_movimiento= 'salida')
     
 
     @app.route('/actualizar_producto/<id>', methods=['GET', 'POST'])
@@ -61,7 +61,7 @@ class ProductosController(FlaskController):
         # Lógica para mostrar el formulario de edición con los datos actuales del producto
                 producto= Productos.obtener_producto_por_id(id)
                 categoria = Categorias.obtener_categorias()
-                return render_template('formulario_actualizar_producto.html',titulo_pagina = 'Actualizar Productos', producto=producto, categoria=categoria)
+                return render_template('formulario_actualizar_producto.html',titulo_pagina = 'Actualizar Productos', producto=producto, categoria=categoria, tipo_de_movimiento= 'actualizar')
 
             if request.method == 'POST':
         # Lógica para procesar la actualización del 

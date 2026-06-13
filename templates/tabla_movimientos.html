@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block contenido %}
+
+<h2>Lista de Movimientos</h2>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Valor Unitario</th>
+            <th>Tipo</th>
+            <th>Total</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for movimiento in movimientos %}
+        <tr>
+            <td>{{ movimiento.id }}</td>
+            <td>{{ movimiento.usuario.nombre }}</td>
+            <td>{{ movimiento.producto.nombre }}</td>
+            <td>{{ movimiento.cantidad }}</td>
+            <td>{{ movimiento.valor_unitario }}</td>
+            <td>{{ movimiento.tipo_de_movimiento }}</td>
+            <td>{{ movimiento.cantidad * movimiento.valor_unitario }}</td>
+            <td>{{ movimiento.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">No hay movimientos registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+<a href="{{ url_for('movimientos') }}">
+    Nuevo Movimiento
+</a>
+
+{% endblock contenido %}

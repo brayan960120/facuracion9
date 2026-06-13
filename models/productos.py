@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
 from sqlalchemy import update
@@ -14,6 +15,10 @@ class Productos(Base,SerializerMixin):
     unidad_medida = Column(String(3), nullable=False)
     cantida_stock = Column(Integer, nullable=False)
     categoria = Column(Integer, ForeignKey('categorias.id'), nullable=False)
+    movimientos = relationship(
+        "Movimientos",
+        back_populates="producto"
+    )
 
     def __init__(self, descripcion, valor_unitario, unidad_medida, cantida_stock, categoria):
         self.descripcion = descripcion

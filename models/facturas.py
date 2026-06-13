@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from src.models import session, Base
-from src.models.clientes import Clientes
+from src.models.movimientos import Movimientos
 from src.models.usuarios import Usuarios
 from src.models.detalle_facturas import DetalleFacturas
 
