@@ -21,6 +21,7 @@
       <th scope="col">Cantidad en Stock</th>      
       <th scope="col">Categoria</th>
       <th scope="col">Total$</th>
+      <th scope="col">Activo</th>
       <th scope="col">Acciones</th>
       <!-- <th scope="col">Comprar</th> -->
       
@@ -28,33 +29,27 @@
     </tr>
   </thead>
   <tbody>
-      {% for producto in productos %}
-      <tr>
-        <th scope="row">{{producto.Productos.id}}</th>
-        <td>{{producto.Productos.descripcion}}</td>
-        <td>{{producto.Productos.valor_unitario}}</td>
-        <td>{{producto.Productos.unidad_medida}}</td>
-        <td>{{producto.Productos.cantida_stock}}</td>
-        <td>{{producto.Categorias.categoria}}</td>
-        <td class="numero">{{producto.Productos.valor_unitario * producto.Productos.cantida_stock}}</td>
-        <td> 
-          <a class="btn btn-danger" href="/eliminar_producto/{{producto.Productos.id}}">Eliminar</a>
-          <a class="btn btn-success" href="/actualizar_producto/{{producto.Productos.id}}">Editar</a>
-        </td>
-        
-
-
-        <!-- <td>
-          <a class="btn btn-primary" href="/compra2/{{producto.Productos.id}}">comprar</a>
-
-        </td>-->
-       
-        
-      </tr>
+      {% for producto, categoria in productos %}
+        <tr>
+          <td>{{ producto.id }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.valor_unitario }}</td>
+          <td>{{ producto.unidad_medida }}</td>
+          <td>{{ producto.cantida_stock }}</td>
+          <td>{{ categoria }}</td>
+          <td class="numero">{{ producto.valor_unitario * producto.cantida_stock }}</td>
+          <td>{{ producto.activo }}</td>
+          <td> 
+            <a href="{{ url_for('eliminar_producto', id=producto.id) }}"
+              class="btn btn-danger"
+              onclick="return confirm('¿Estás seguro de eliminar este producto?');">
+              Eliminar
+            </a>
+            <a class="btn btn-success" href="/actualizar_producto/{{producto.id}}">Editar</a>
+        </tr>
+      {% endfor %}
      
   </tbody>
-  
-{% endfor %}
   
       
 </table>

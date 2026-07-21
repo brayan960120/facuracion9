@@ -11,6 +11,7 @@ class LoginController(FlaskController):
             email = request.form.get('email')                
             contraseña = request.form.get('contrasena')    
             usuario_valido = Usuarios.validar_usuario(email, contraseña)
+            
             if usuario_valido:
                 session['email']= email
                 flash('Has iniciado sesion exitosamente')

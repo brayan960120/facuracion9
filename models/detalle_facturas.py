@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy_serializer import SerializerMixin
 from src.models import session, Base
-from src.models.usuarios import Usuarios
-from src.models.productos import Productos
+
 
 
 class DetalleFacturas(Base, SerializerMixin):

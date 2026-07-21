@@ -26,8 +26,7 @@ class UsuariosController(FlaskController):
                 flash('La contraseña es un campo obligatorio')    
             elif not rol:
                 flash('El rol en stock es un campo obligatorio')
-            elif Clientes.email_existe(email):
-                    flash('El email ya existe')
+            
 
             else:    
                     usuario = Usuarios(nombre_completo, email, contraseña, rol)

@@ -1,11 +1,13 @@
 from sqlalchemy import Column, Integer, String
 from src.models import session, Base
+from sqlalchemy.orm import relationship
 
 
 class Categorias(Base):
     __tablename__ = "categorias"    
     id = Column(Integer, primary_key=True)
     categoria = Column(String(300), nullable=False)
+
 
     def __init__(self, categoria):
         self.categoria = categoria

@@ -10,7 +10,7 @@
     </ul>
   {% endif %}
 {% endwith %}
-<form action="actualizar_producto" method="post">
+<form action="/actualizar_producto/{{producto.id}}" method="POST">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Id producto</label>

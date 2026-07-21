@@ -1,58 +1,141 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Movimiento</title>
 
-{% block contenido %}
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-<form action="{{ url_for('crear_movimiento') }}" method="POST">
-    <table border="1">
-        <tr>
-            <td>
-                <select name="usuario_id" required>
-                    {% for usuario in usuarios %}
-                    <option value="{{ usuario.id }}">
-                        {{ usuario.nombre }}
-                    </option>
-                    {% endfor %}
-                </select>
-            </td>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+        }
 
-            <td>
-                <select name="producto_id" required>
-                    {% for producto in productos %}
-                    <option value="{{ producto.id }}">
-                        {{ producto.nombre }}
-                    </option>
-                    {% endfor %}
-                </select>
-            </td>
+        .contenedor{
+            width:500px;
+            margin:40px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px rgba(0,0,0,.2);
+        }
 
-            <td>
-                <input type="number" name="cantidad" required>
-            </td>
+        h2{
+            text-align:center;
+        }
 
-            <td>
-                <input type="number" name="valor_unitario" required>
-            </td>
+        label{
+            display:block;
+            margin-top:15px;
+            font-weight:bold;
+        }
 
-            <td>
-                <select name="tipo_de_movimiento" required>
-                    <option value="entrada">Entrada</option>
-                    <option value="salida">Salida</option>
-                </select>
-            </td>
+        input, select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing:border-box;
+        }
 
-            <td>
-                <button type="submit">Guardar</button>
-            </td>
-        </tr>
-    </table>
-</form>
-{% endblock contenido %}
-       
+        button{
+            width:100%;
+            margin-top:20px;
+            padding:12px;
+            background:#007BFF;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h2>Registrar Movimiento</h2>
+
+    <form action="/movimientos/agregar_movimiento" method="POST">
+
+        <label>Usuario</label>
+        <select name="usuario_id" required>
+            <option value="">Seleccione un usuario</option>
+            {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}">
+                    {{ usuario.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Producto</label>
+        <select name="producto_id" id="producto_id" required>
+            <option value="">Seleccione un producto</option>
+
+            {% for producto in productos %}
+                <option 
+                    value="{{ producto.id }}"
+                    data-stock="{{ producto.cantida_stock }}"
+                    data-valor="{{ producto.valor_unitario }}">
+            
+                    {{ producto.nombre }}
+                </option>
+            {% endfor %}
+
+        </select>
+        <label>Cantidad Stock</label>
+            <input 
+                type="number" 
+                id="cantida_stock" 
+                name="cantida_stock"
+                readonly
+            >
+            <label>Valor Unitario</label>
+            <input 
+                type="number" 
+                id="valor_unitario" 
+                name="valor_unitario"
+                readonly
+            >
+
+        <label>Tipo de Movimiento</label>
+            <input type="hidden" name="tipo_de_movimiento" value="{{ tipo_de_movimiento}}">
+
+        <label>Fecha</label>
+            <input type="text" name="fecha" value="{{ fecha }}" readonly>
+        <button type="submit">
+            Guardar Movimiento
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+window.onload = function () {
+    document.getElementById("miFormulario").submit();
+};
+
+
+document.getElementById("producto_id").addEventListener("change", function(){
+
+    let opcion = this.options[this.selectedIndex];
+
+    let stock = opcion.getAttribute("data-stock");
+    let valor = opcion.getAttribute("data-valor");
+
+    document.getElementById("cantida_stock").value = stock;
+    document.getElementById("valor_unitario").value = valor;
+
+});
+
+</script>
+
+</body>
+</html>
