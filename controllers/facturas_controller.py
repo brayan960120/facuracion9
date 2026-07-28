@@ -2,7 +2,7 @@ from src.app import app
 from flask import render_template, request, redirect, url_for, flash
 from flask_controller import FlaskController
 from src.models.facturas import Facturas
-from src.models.movimientos import Movimientos
+from src.models.clientes import Clientes
 from src.models.usuarios import Usuarios
 from src.models.productos import Productos
 from src.models.detalle_facturas import DetalleFacturas

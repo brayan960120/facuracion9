@@ -76,15 +76,21 @@ class ProductosController(FlaskController):
     @app.route('/ver_productos')
     def ver_productos():
 
-        productos = (
-            db_session.query(Productos, Categorias.categoria)
-            .join(
-                Categorias,
-                Productos.categoria == Categorias.id
-            )
-            .filter(Productos.activo.is_(True))
-            .all())
+        buscar = request.args.get("buscar", "")
 
+        consulta = (
+            db_session.query(Productos, Categorias.categoria)
+            .join(Categorias)
+            .filter(Productos.activo == True)
+        )
+
+        if buscar:
+            consulta = consulta.filter(
+                Productos.descripcion.ilike(f"%{buscar}%")
+            )
+
+        productos = consulta.all()
+ 
         return render_template(
             'tabla_productos.html',
             titulo_pagina='Ver Productos',

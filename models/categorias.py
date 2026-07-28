@@ -54,3 +54,14 @@ class Categorias(Base):
     
     
     
+
+
+
+    
+
+    
+    
+    
+    
+    
+    

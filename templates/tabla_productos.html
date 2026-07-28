@@ -10,7 +10,25 @@
   </ul>
 {% endif %}
 {% endwith %}
+<form method="GET" action="{{ url_for('ver_productos') }}" class="mb-3">
+    <div class="input-group">
+        <input
+            type="text"
+            name="buscar"
+            class="form-control"
+            placeholder="Buscar por descripción..."
+            value="{{ request.args.get('buscar', '') }}"
+        >
 
+        <button class="btn btn-primary" type="submit">
+            Buscar
+        </button>
+
+        <a href="{{ url_for('ver_productos') }}" class="btn btn-secondary">
+            Limpiar
+        </a>
+    </div>
+</form>
 <table class="table">
   <thead>
     <tr>
@@ -78,4 +96,5 @@ function sumarTD() {
  
 
 {% endblock contenido %}    
+     
      

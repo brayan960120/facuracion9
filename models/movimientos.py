@@ -60,3 +60,5 @@ def obtener_tipo(es_compra):
 
   
     
+  
+    

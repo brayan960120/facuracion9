@@ -77,4 +77,3 @@ class DetalleFacturasController(FlaskController):
 
         return render_template('formulario_login.html', titulo_pagina = 'Login')
                 
-                

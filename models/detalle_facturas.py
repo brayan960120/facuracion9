@@ -60,3 +60,6 @@ class DetalleFacturas(Base, SerializerMixin):
 
     
     
+
+    
+    

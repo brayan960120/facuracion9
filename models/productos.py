@@ -112,3 +112,13 @@ class Productos(Base,SerializerMixin):
 
     
     
+
+    
+
+    
+    
+
+    
+
+    
+    
