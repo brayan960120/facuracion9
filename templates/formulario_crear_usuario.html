@@ -21,9 +21,7 @@
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" >
         <a class="navbar-brand" href="#">Inventtools</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        
     </nav>
     <div></div>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -39,22 +37,27 @@
             <label for="nombre_completo">Nombre completo</label>
             <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" placeholder="Nombre completo">
         </div>
+
         <div class="form-group col-md-6">
             <label for="email">Email</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Email">
         </div>
+
         <div class="form-group col-md-6">
             <label for="contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="contraseña" name="contraseña" readonly">
+            <input type="password" class="form-control" id="contraseña" name="contraseña">
         </div>
+
         <div class="form-group col-md-6">
             <label for="rol">Rol</label>
             <input type="text" class="form-control" id="rol" name="rol" placeholder="Rol">
         </div>
-        
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <div class="d-flex justify-content-end">
-        <a class="btn btn-primary" href="/" role="button">Home</a>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+
+        <a class="btn btn-secondary" href="/">Iniciar sesión</a>
     </div>
 </form>
 {% endblock contenido %}

@@ -27,11 +27,10 @@
   <div class="form-group col-md-6">
     <label for="unidad_medida">Unidad de Medida</label>
     <select id="unidad_medida" name="unidad_medida" class="form-control">
-        <option selected>Seleccione...</option>
-        <option value="GRS">GRS</option>
-        <option value="UND">UND</option>
-        <option value="LTS">LTS</option>
-      <option>...</option>
+      <option value="" selected>Seleccione...</option>
+      <option value="GRS">GRS</option>
+      <option value="UND">UND</option>
+      <option value="LTS">LTS</option>
     </select>
   </div>
   
@@ -42,11 +41,10 @@
   <div class="form-group col-md-6">
     <label for="categoria">Categoria</label>
     <select id="categoria" name="categoria" class="form-control">
-        <option selected>Seleccione...</option>
-        {% for categoria in categoria %}
-          <option value={{categoria.id}}>{{categoria.categoria}}</option>
-        {% endfor %}
-      <option>...</option>
+        <option value="" selected>Seleccione...</option>
+          {% for categoria in categoria %}
+            <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
+          {% endfor %}
     </select>
     
   </div>

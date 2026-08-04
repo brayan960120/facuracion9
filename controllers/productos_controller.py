@@ -36,6 +36,24 @@ class ProductosController(FlaskController):
             categoria = request.form.get('categoria')
             activo = request.form.get('activo') == True  # Convertir a booleano
 
+            if not descripcion:
+                flash('La descripción es obligatoria.', 'danger')
+
+            if not valor_unitario:
+                flash('El valor unitario es obligatorio.', 'danger')
+
+            if not unidad_medida:
+                flash('La unidad de medida es obligatoria.', 'danger')
+
+            if not cantida_stock:
+                flash('La cantidad en stock es obligatoria.', 'danger')
+
+            if not categoria:
+                flash('La categoría es obligatoria.', 'danger')
+
+            if not all([descripcion, valor_unitario, unidad_medida, cantida_stock, categoria]):
+                return redirect(url_for('crear_producto'))
+
             producto = Productos(
                 descripcion,
                 valor_unitario,
