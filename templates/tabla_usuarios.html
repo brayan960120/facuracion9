@@ -30,8 +30,35 @@
           <td>{{usuario.contraseña}}</td>
           <td>{{usuario.rol}}</td>
           <td>
-            <a class="btn btn-danger" href="/eliminar_usuario/{{usuario.id}}">Eliminar</a>
-            <a class="btn btn-success" href="/actualizar_usuario/{{usuario.id}}">Editar</a>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <a class="btn btn-danger d-flex justify-content-center align-items-center" href="/eliminar_usuario/{{usuario.id}}" class="btn btn-danger d-flex justify-content-center align-items-center"
+              onclick="confirmarEliminar(event, this.href)"
+              style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+              Eliminar
+            </a>
+            <script>
+              function confirmarEliminar(event, url) {
+                  event.preventDefault();
+
+                  Swal.fire({
+                    title: '¿Eliminar usuario?',
+                    ext: 'Esta acción no se puede deshacer.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+              if (result.isConfirmed) {
+              window.location.href = url;
+              }
+              });
+              }
+            </script>
+            <a class="btn btn-success d-flex justify-content-center align-items-center" href="/actualizar_usuario/{{usuario.id}}" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+              Editar
+            </a>
           </td>
         </tr>
       {% endfor %}    

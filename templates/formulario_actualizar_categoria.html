@@ -28,7 +28,9 @@
 </head>
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success" >
-        <a class="navbar-brand" href="#">Inventtools</a>
+        <a class="navbar-brand" href="/">Inventtools</a>
+        <a href="/crear_categoria" class="btn btn-secondary d-flex justify-content-center align-items-center"
+            style="width:100px; height:30px; font-size:12px;">Crear categoría</a>
     </nav>
   </div>
 <form action="actualizar_categoria" method="post">
@@ -49,8 +51,8 @@
             </select>
           </div>
         
-        <button type="submit" class="btn btn-success">Actualizar</button>
+        <button type="submit" class="btn btn-success" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">Actualizar</button>
     </div>
-    <a href="/crear_categoria" class="btn btn-secondary">Crear categoría</a>
+   
 
     {% endblock contenido %}

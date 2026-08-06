@@ -20,7 +20,7 @@
     </title>
     <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary" >
-        <a class="navbar-brand" href="#">Inventtools</a>
+        <a class="navbar-brand" href="/">Inventtools</a>
         
     </nav>
     <div></div>
@@ -37,27 +37,33 @@
             <label for="nombre_completo">Nombre completo</label>
             <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" placeholder="Nombre completo">
         </div>
-
         <div class="form-group col-md-6">
             <label for="email">Email</label>
             <input type="text" class="form-control" id="email" name="email" placeholder="Email">
         </div>
-
         <div class="form-group col-md-6">
             <label for="contraseña">Contraseña</label>
-            <input type="password" class="form-control" id="contraseña" name="contraseña">
+            <input type="password" class="form-control" id="contraseña" name="contraseña" readonly">
         </div>
-
         <div class="form-group col-md-6">
             <label for="rol">Rol</label>
             <input type="text" class="form-control" id="rol" name="rol" placeholder="Rol">
         </div>
     </div>
-
-    <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-
-        <a class="btn btn-secondary" href="/">Iniciar sesión</a>
+    <div class="d-flex justify-content-between mt-3">
+        <button type="submit"
+            class="btn btn-primary"
+            style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+            Guardar
+        </button>
+        <a href="/"
+            class="btn btn-secondary d-flex justify-content-center align-items-center"
+            style="width:80px; height:30px; font-size:12px;">
+            Iniciar sesión
+        </a>
     </div>
+    
+        
+
 </form>
 {% endblock contenido %}

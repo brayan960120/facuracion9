@@ -1,8 +1,25 @@
 {% extends 'layout.html' %}
 
 {% block contenido %}
-  <h1 class="font-weight-bold text-center text-capitalize ">Bienvenido</h1>
-  <a class="dropdown-item" href="/crear_producto" style="padding: 12px 25px;">Agregar Producto</a>
-  <a class="dropdown-item" href="/ver_productos" style="padding: 12px 25px;">Lista Productos</a>
-  <a class="dropdown-item" href="/movimientos" style="padding: 12px 25px;">Movimientos</a>
+  <h1 class="font-weight-bold text-center text-capitalize " style="transition: opacity 0.3s;"
+    onmouseover="this.style.opacity='0'"
+    onmouseout="this.style.opacity='1'">
+    Inventario
+  </h1>
+  <a class="dropdown-item" href="/crear_producto" style="padding:12px 25px; background-color:white; color:black;"
+    onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';"
+    onmouseout="this.style.backgroundColor='white'; this.style.color='black';">
+    Agregar Producto
+  </a>
+  </a>
+  <a class="dropdown-item" href="/ver_productos" style="padding:12px 25px; background-color:white; color:black;"
+    onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';"
+    onmouseout="this.style.backgroundColor='white'; this.style.color='black';">
+    Lista de Productos
+  </a>
+  <a class="dropdown-item" href="/movimientos" style="padding:12px 25px; background-color:white; color:black;"
+    onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';"
+    onmouseout="this.style.backgroundColor='white'; this.style.color='black';">
+    Movimientos
+  </a>
 {% endblock contenido %}

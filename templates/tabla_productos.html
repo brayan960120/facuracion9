@@ -20,11 +20,12 @@
             value="{{ request.args.get('buscar', '') }}"
         >
 
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
             Buscar
         </button>
 
-        <a href="{{ url_for('ver_productos') }}" class="btn btn-secondary">
+        <a href="{{ url_for('ver_productos') }}" class="btn btn-secondary d-flex justify-content-center align-items-center"
+            style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
             Limpiar
         </a>
     </div>
@@ -39,7 +40,6 @@
       <th scope="col">Cantidad en Stock</th>      
       <th scope="col">Categoria</th>
       <th scope="col">Total$</th>
-      <th scope="col">Activo</th>
       <th scope="col">Acciones</th>
       <!-- <th scope="col">Comprar</th> -->
       
@@ -56,15 +56,39 @@
           <td>{{ producto.cantida_stock }}</td>
           <td>{{ categoria }}</td>
           <td class="numero">{{ producto.valor_unitario * producto.cantida_stock }}</td>
-          <td>{{ producto.activo }}</td>
           <td> 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <a href="{{ url_for('eliminar_producto', id=producto.id) }}"
-              class="btn btn-danger"
-              onclick="return confirm('¿Estás seguro de eliminar este producto?');">
+              class="btn btn-danger d-flex justify-content-center align-items-center"
+              onclick="confirmarEliminar(event, this.href)"
+              style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
               Eliminar
             </a>
-            <a class="btn btn-success" href="/actualizar_producto/{{producto.id}}">Editar</a>
-        </tr>
+            <script>
+              function confirmarEliminar(event, url) {
+                  event.preventDefault();
+
+                  Swal.fire({
+                    title: '¿Eliminar producto?',
+                    ext: 'Esta acción no se puede deshacer.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+              if (result.isConfirmed) {
+              window.location.href = url;
+              }
+              });
+              }
+            </script>
+        
+            <a class="btn btn-success d-flex justify-content-center align-items-center" href="/actualizar_producto/{{producto.id}}" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+              Editar
+            </a>
+        </td>
       {% endfor %}
      
   </tbody>
@@ -72,9 +96,11 @@
       
 </table>
 
+<hr class="border border-2 my-4" style="border-color: black;">
+
           
-<p>Total $: <span id="resultado">0</span></p>
-<button onclick="sumarTD()">Sumar TD</button>
+<p><strong>Total precio de productos $: <span id="resultado">0</span></strong></p>
+<button class="btn btn-warning" onclick="sumarTD()" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">Sumar TD</button>
 
 
 

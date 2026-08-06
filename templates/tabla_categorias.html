@@ -24,8 +24,12 @@
           <th scope="row">{{categoria.id}}</th>
           <td>{{categoria.categoria}}</td> 
           <td>
-            <a class="btn btn-danger" href="/eliminar_categorias/{{categoria.id}}">Eliminar</a>
-            <a class="btn btn-success" href="/actualizar_categoria/{{categoria.id}}">Editar</a>
+            <a class="btn btn-danger d-flex justify-content-center align-items-center" href="/eliminar_categorias/{{categoria.id}}" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+              Eliminar
+            </a>
+            <a class="btn btn-success d-flex justify-content-center align-items-center" href="/actualizar_categoria/{{categoria.id}}" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+              Editar
+            </a>
           </td>   
         </tr>
       {% endfor %}    
