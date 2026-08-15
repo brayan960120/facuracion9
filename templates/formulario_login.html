@@ -64,7 +64,16 @@
   {% else %}
     No has iniciado sesión
   {% endif %}
+  <br>
 
-  <a href="/crear_usuario">Crear usuario</a>
+  <a href="{{ url_for('olvidar_password') }}" style="color: red;">
+    ¿Olvidaste tu contraseña?
+  </a>
+
+  <br>
+
+  <a href="/crear_usuario" >
+    Crear usuario
+  </a>
 </form>
 
