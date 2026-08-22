@@ -32,7 +32,7 @@ class Productos(Base,SerializerMixin):
 
     def obtener_productos():
         producto = session.query(Productos, Categorias).join(Categorias).all()
-        producto = session.query(Productos).all()
+        producto = session.query(Productos).filter(Productos.activo.is_(True)).all()
         return producto
 
     

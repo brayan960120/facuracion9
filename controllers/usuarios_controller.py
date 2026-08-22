@@ -31,6 +31,7 @@ class UsuariosController(FlaskController):
             else:    
                     usuario = Usuarios(nombre_completo, email, contraseña, rol)
                     Usuarios.agregar_usuario(usuario)
+                    flash("Usuario creado correctamente", "success")
                     return redirect(url_for('ver_usuarios'))
         return render_template('formulario_crear_usuario.html', titulo_pagina = 'Crear Usuario')
 
