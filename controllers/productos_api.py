@@ -15,18 +15,23 @@ class ProductosAPIController(FlaskController):
 
         resultado = []
 
-        for producto in productos:
+        for producto, categoria in productos:
+
             resultado.append({
                 "id": producto.id,
                 "descripcion": producto.descripcion,
                 "valor_unitario": producto.valor_unitario,
                 "unidad_medida": producto.unidad_medida,
                 "cantida_stock": producto.cantida_stock,
-                "categoria": producto.categoria,
+
+            # Aquí mandamos el NOMBRE
+                "categoria": categoria.categoria,
+
                 "activo": producto.activo
             })
 
         return jsonify(resultado)
+
 
     @app.route("/api/productos", methods=["POST"])
     def api_agregar_producto():

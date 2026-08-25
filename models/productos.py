@@ -31,9 +31,18 @@ class Productos(Base,SerializerMixin):
         self.activo = activo
 
     def obtener_productos():
-        producto = session.query(Productos, Categorias).join(Categorias).all()
-        producto = session.query(Productos).filter(Productos.activo.is_(True)).all()
-        return producto
+        productos = session.query(
+            Productos,
+            Categorias
+        ).join(
+            Categorias,
+            Productos.categoria == Categorias.id
+        ).filter(
+            Productos.activo.is_(True)
+        ).all()
+
+        return productos
+
 
     
     def agregar_producto(producto):
