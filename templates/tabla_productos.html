@@ -41,6 +41,8 @@
       <th scope="col">Categoria</th>
       <th scope="col">Total$</th>
       <th scope="col">Acciones</th>
+      <th scope="col">Imagen</th>
+
       <!-- <th scope="col">Comprar</th> -->
       
       
@@ -70,7 +72,7 @@
 
                   Swal.fire({
                     title: '¿Eliminar producto?',
-                    ext: 'Esta acción no se puede deshacer.',
+                    text: 'Esta acción no se puede deshacer.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
@@ -89,6 +91,32 @@
               Editar
             </a>
         </td>
+        <td>
+          {% if producto.imagen %}
+            <img
+              src="{{ url_for('static', filename='uploads/' + producto.imagen) }}"
+              width="60"
+              height="60"
+              style="object-fit: cover; border-radius: 8px; cursor: pointer;"
+              onclick="mostrarImagen(this.src)"
+              title="Haz clic para ver la imagen completa"
+  >
+          {% else %}
+            <span class="text-muted">Sin imagen</span>
+          {% endif %}
+      </td>
+      <script>
+        function mostrarImagen(src) {
+            Swal.fire({
+                imageUrl: src,
+                imageAlt: 'Imagen del producto',
+                showCloseButton: true,
+                showConfirmButton: false,
+                background: '#fff',
+                width: 'auto'
+            });
+        }
+</script>         
       {% endfor %}
      
   </tbody>

@@ -9,7 +9,11 @@ from src.mail import mail
 from itsdangerous import URLSafeTimedSerializer
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="static",
+    static_url_path="/static"
+)
 
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
@@ -72,12 +76,7 @@ def test_mail():
 
 
 if __name__ == "__main__":
-    app.run(
-        host="0.0.0.0",
-        port=5000,
-        debug=True
-    )
-    
+    app.run(host="0.0.0.0", port=5000, debug=True)
 
 
     

@@ -13,11 +13,14 @@ from src.models.usuarios import Usuarios
 from src.models.detalle_facturas import DetalleFacturas
 from flask import session as flask_session
 from src.models import session as db_session
-
+import os
+from werkzeug.utils import secure_filename
 
 
 class ProductosController(FlaskController):
-    @app.route('/crear_producto', methods=['POST','GET'])
+
+
+    @app.route('/crear_producto', methods=['POST', 'GET'])
     def crear_producto():
 
         if 'email' not in session:
@@ -25,17 +28,20 @@ class ProductosController(FlaskController):
 
         usuario = db_session.query(Usuarios).filter_by(
             email=session["email"]
-            ).first()
-        
+        ).first()
 
         if request.method == 'POST':
+
             descripcion = request.form.get('descripcion')
             valor_unitario = request.form.get('valor_unitario')
             unidad_medida = request.form.get('unidad_medida')
             cantida_stock = request.form.get('cantida_stock')
             categoria = request.form.get('categoria')
-            activo = request.form.get('activo') == True  # Convertir a booleano
 
+        # Obtener imagen
+            imagen = request.files.get('imagen')
+
+        # Validaciones
             if not descripcion:
                 flash('La descripción es obligatoria.', 'danger')
 
@@ -51,8 +57,18 @@ class ProductosController(FlaskController):
             if not categoria:
                 flash('La categoría es obligatoria.', 'danger')
 
-            if not all([descripcion, valor_unitario, unidad_medida, cantida_stock, categoria]):
+            if not all([
+                descripcion,
+                valor_unitario,
+                unidad_medida,
+                cantida_stock,
+                categoria
+            ]):
                 return redirect(url_for('crear_producto'))
+
+        # ---------------------------------
+        # GUARDAR PRODUCTO
+        # ---------------------------------
 
             producto = Productos(
                 descripcion,
@@ -61,12 +77,40 @@ class ProductosController(FlaskController):
                 cantida_stock,
                 categoria,
                 True
+            )
+
+        # ---------------------------------
+        # GUARDAR IMAGEN SI EXISTE
+        # ---------------------------------
+
+            if imagen and imagen.filename:
+
+            # Crear carpeta si no existe
+                os.makedirs('static/uploads', exist_ok=True)
+
+            # Limpiar nombre del archivo
+                nombre_archivo = secure_filename(imagen.filename)
+
+            # Ruta donde se guardará
+                ruta = os.path.join(
+                    'static',
+                    'uploads',
+                    nombre_archivo
                 )
-                
+
+            # Guardar archivo
+                imagen.save(ruta)
+
+            # Guardar nombre en el producto
+                producto.imagen = nombre_archivo
+
+        # ---------------------------------
+        # GUARDAR EN BASE DE DATOS
+        # ---------------------------------
+
             db_session.add(producto)
             db_session.flush()
-                
-            
+
             movimiento = Movimientos(
                 usuario_id=usuario.id,
                 producto_id=producto.id,
@@ -74,21 +118,23 @@ class ProductosController(FlaskController):
                 valor_unitario=producto.valor_unitario,
                 tipo_de_movimiento='entrada',
                 activo=True
-                )
-            print(request.form.get('activo'))
-            print(activo)
-            db_session.add(movimiento)
-            db_session.commit()
-            
-            print(producto.id)
-            print(producto.activo)
-        
-            return redirect(url_for('ver_productos'))
-        
+            )
 
-        categoria = Categorias.obtener_categorias()   
-        return render_template('formulario_crear_producto.html', titulo_pagina = 'Crear Producto',usuario=usuario,categoria=categoria)
-    
+            db_session.add(movimiento)
+
+            db_session.commit()
+
+            return redirect(url_for('ver_productos'))
+
+        categoria = Categorias.obtener_categorias()
+
+        return render_template(
+            'formulario_crear_producto.html',
+            titulo_pagina='Crear Producto',
+            usuario=usuario,
+            categoria=categoria
+        )
+
 
     
     @app.route('/ver_productos')
@@ -144,13 +190,15 @@ class ProductosController(FlaskController):
 
     @app.route('/actualizar_producto/<id>', methods=['GET', 'POST'])
     def actualizar_producto(id):
+
         if 'email' not in session:
             return render_template(
                 'formulario_login.html',
                 titulo_pagina='Login'
-                )
-        
+            )
+
         if request.method == 'GET':
+
             producto = Productos.obtener_producto_por_id(id)
             categoria = Categorias.obtener_categorias()
 
@@ -160,16 +208,19 @@ class ProductosController(FlaskController):
                 producto=producto,
                 categoria=categoria,
                 tipo_de_movimiento='actualizar'
-            )      
+            )
 
         if request.method == 'POST':
-        # Lógica para procesar la actualización del     
+
             descripcion = request.form.get('descripcion')
             valor_unitario = request.form.get('valor_unitario')
             unidad_medida = request.form.get('unidad_medida')
             cantida_stock = request.form.get('cantida_stock')
             categoria = request.form.get('categoria')
             activo = request.form.get('activo') == 'true'
+
+        # Obtener la imagen
+            imagen = request.files.get('imagen')
 
             producto_modificar = Productos(
                 descripcion,
@@ -178,11 +229,17 @@ class ProductosController(FlaskController):
                 cantida_stock,
                 categoria,
                 True
-                )             
+            )
 
-            Productos.actualizar_producto(producto_modificar, id)
-            
-        return redirect(url_for('ver_productos'))
+        # Pasar la imagen
+            Productos.actualizar_producto(
+                producto_modificar,
+                id,
+                imagen
+            )
+
+            return redirect(url_for('ver_productos'))
+
         
    
     

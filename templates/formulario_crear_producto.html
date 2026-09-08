@@ -3,27 +3,41 @@
 {% block contenido %}
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
+    <ul class="flashes">
     {% for message in messages %}
       <li>{{ message }}</li>
     {% endfor %}
     </ul>
   {% endif %}
 {% endwith %}
-<form action="crear_producto" method="post">
+
+<form action="{{ url_for('crear_producto') }}"
+      method="POST"
+      enctype="multipart/form-data">
+
+
   <div class="form-row">
+
     <div class="form-group col-md-6">
       <label for="descripcion">Descripción Producto</label>
-      <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción Producto">
+      <input type="text"
+             class="form-control"
+             id="descripcion"
+             name="descripcion"
+             placeholder="Descripción Producto">
     </div>
+
     <div class="form-group col-md-6">
       <label for="valor_unitario">Valor Unitario</label>
-      <input type="number" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
+      <input type="number"
+             class="form-control"
+             id="valor_unitario"
+             name="valor_unitario"
+             placeholder="Valor Unitario">
     </div>
-    
 
   </div>
-  
+
   <div class="form-group col-md-6">
     <label for="unidad_medida">Unidad de Medida</label>
     <select id="unidad_medida" name="unidad_medida" class="form-control">
@@ -33,28 +47,58 @@
       <option value="LTS">LTS</option>
     </select>
   </div>
-  
+
   <div class="form-group col-md-6">
     <label for="cantida_stock">Cantidad Stock</label>
-    <input type="number" class="form-control" id="cantida_stock" name="cantida_stock" placeholder="Cantidad en Stock">
+    <input type="number"
+           class="form-control"
+           id="cantida_stock"
+           name="cantida_stock"
+           placeholder="Cantidad en Stock">
   </div>
+
   <div class="form-group col-md-6">
     <label for="categoria">Categoria</label>
     <select id="categoria" name="categoria" class="form-control">
-        <option value="" selected>Seleccione...</option>
-          {% for categoria in categoria %}
-            <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
-          {% endfor %}
+      <option value="" selected>Seleccione...</option>
+      {% for categoria in categoria %}
+        <option value="{{ categoria.id }}">{{ categoria.categoria }}</option>
+      {% endfor %}
     </select>
-    
+  </div>
+
+  <div class="form-group col-md-6">
+
+      <label for="imagen">
+          Imagen del Producto
+          <small>(opcional)</small>
+      </label>
+
+      <input type="file"
+            class="form-control"
+            id="imagen"
+            name="imagen"
+            accept="image/*">
+
+      <small class="form-text text-muted">
+          Puedes dejar este campo vacío.
+      </small>
+
   </div>
   
-  <button type="submit" class="btn btn-primary" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">Guardar</button>
+
+  <button type="submit"
+          class="btn btn-primary"
+          style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+    Guardar
+  </button>
+
 </form>
 
-
-
 {% endblock contenido %}
-      
+
+
+
+
       
       

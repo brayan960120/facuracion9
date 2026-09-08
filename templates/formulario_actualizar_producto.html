@@ -1,82 +1,196 @@
 
 
 {% block contenido %}
+
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
     </ul>
   {% endif %}
 {% endwith %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
       {% block titulo %}
         {{ titulo_pagina }}
       {% endblock %}
     </title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 </head>
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success" >
+
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="/">Inventtools</a>
     </nav>
-  </div>
-<form action="/actualizar_producto/{{producto.id}}" method="POST">
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">Id producto</label>
-      <input value= {{producto.id}} type="text" class="form-control" id="id" name="id"  readonly >
-    </div>
-    <div class="form-group col-md-6">
-      <label for="descripcion">Descripción Producto</label>
-      <input value= {{producto.descripcion}} type="text" class="form-control" id="descripcion" name="descripcion"  placeholder="Descripción Producto" >
-    </div>
-    <div class="form-group col-md-6">
-      <label for="valor_unitario">Valor Unitario</label>
-      <input value= {{producto.valor_unitario}} type="number" class="form-control" id="valor_unitario" name="valor_unitario" placeholder="Valor Unitario">
-    </div>
-    
+</div>
 
-  </div>
-  
-  <div class="form-group col-md-6">
-    <label for="unidad_medida">Unidad de Medida</label>
-    <select value= {{producto.unidad_medida}} id="unidad_medida" name="unidad_medida" class="form-control" >
-        <option selected>{{producto.unidad_medida}}</option>
-        <option value="GRS">GRS</option>
-        <option value="UND">UND</option>
-        <option value="LTS">LTS</option>
-      <option>...</option>
-    </select>
-  </div>
-  
-  <div class="form-group col-md-6">
-    <label for="cantida_stock">Cantidad Stock</label>
-    <input value= {{producto.cantida_stock}} type="text" class="form-control" id="cantida_stock" name="cantida_stock" placeholder="Cantidad en Stock">
-  </div>
 
-  <div class="form-group col-md-6">
-    <label for="categoria">Categoria</label>
-    <select id="categoria" name="categoria" class="form-control">
-      <option selected>Seleccione...</option>
-      {% for categoria in categoria %}
-        <option {% if categoria.id == producto.categoria %} selected {% endif %} value={{categoria.id}}>{{categoria.categoria}}</option>
-      {% endfor %}
-    <option>...</option>
-    </select>  
-  </div>
-  
-  <button type="submit" class="btn btn-success" style="width:80px; height:30px; font-size:12px; padding:2px 8px;">Guardar</button>
+<form action="/actualizar_producto/{{ producto.id }}"
+      method="POST"
+      enctype="multipart/form-data">
+
+
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+            <label for="id">Id producto</label>
+            <input value="{{ producto.id }}"
+                   type="text"
+                   class="form-control"
+                   id="id"
+                   name="id"
+                   readonly>
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label for="descripcion">Descripción Producto</label>
+
+            <input value="{{ producto.descripcion }}"
+                   type="text"
+                   class="form-control"
+                   id="descripcion"
+                   name="descripcion"
+                   placeholder="Descripción Producto">
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label for="valor_unitario">Valor Unitario</label>
+
+            <input value="{{ producto.valor_unitario }}"
+                   type="number"
+                   class="form-control"
+                   id="valor_unitario"
+                   name="valor_unitario"
+                   placeholder="Valor Unitario">
+        </div>
+
+    </div>
+
+
+    <div class="form-group col-md-6">
+        <label for="unidad_medida">Unidad de Medida</label>
+
+        <select id="unidad_medida"
+                name="unidad_medida"
+                class="form-control">
+
+            <option value="GRS"
+                {% if producto.unidad_medida == 'GRS' %}selected{% endif %}>
+                GRS
+            </option>
+
+            <option value="UND"
+                {% if producto.unidad_medida == 'UND' %}selected{% endif %}>
+                UND
+            </option>
+
+            <option value="LTS"
+                {% if producto.unidad_medida == 'LTS' %}selected{% endif %}>
+                LTS
+            </option>
+
+        </select>
+    </div>
+
+
+    <div class="form-group col-md-6">
+        <label for="cantida_stock">Cantidad Stock</label>
+
+        <input value="{{ producto.cantida_stock }}"
+               type="number"
+               class="form-control"
+               id="cantida_stock"
+               name="cantida_stock"
+               placeholder="Cantidad en Stock">
+    </div>
+
+
+    <div class="form-group col-md-6">
+        <label for="categoria">Categoria</label>
+
+        <select id="categoria"
+                name="categoria"
+                class="form-control">
+
+            <option value="">Seleccione...</option>
+
+            {% for categoria in categoria %}
+
+                <option value="{{ categoria.id }}"
+                    {% if categoria.id == producto.categoria %}
+                        selected
+                    {% endif %}>
+
+                    {{ categoria.categoria }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </div>
+
+
+    <div class="form-group col-md-6">
+
+        <label for="imagen">
+            Imagen del Producto
+            <small>(opcional)</small>
+        </label>
+
+        {% if producto.imagen %}
+
+            <div class="mb-2">
+                <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}"
+                    width="100"
+                    height="100"
+                    style="object-fit: cover; border-radius: 8px;">
+        </div>
+
+        {% else %}
+
+            <p class="text-muted">Sin imagen</p>
+
+        {% endif %}
+
+        <input type="file"
+                class="form-control"
+                id="imagen"
+                name="imagen"
+                accept="image/*">
+
+        <small class="form-text text-muted">
+            Déjalo vacío para conservar la imagen actual.
+        </small>
+
+    </div>
+
+
+    <button type="submit"
+            class="btn btn-success"
+            style="width:80px; height:30px; font-size:12px; padding:2px 8px;">
+        Guardar
+    </button>
+
 </form>
 
 {% endblock contenido %}

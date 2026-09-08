@@ -1,4 +1,6 @@
-from flask import request, jsonify
+import os
+
+from flask import request, jsonify, send_from_directory
 from flask_controller import FlaskController
 from src.models.usuarios import Usuarios
 from src.app import app
@@ -27,7 +29,9 @@ class ProductosAPIController(FlaskController):
             # Aquí mandamos el NOMBRE
                 "categoria": categoria.categoria,
 
-                "activo": producto.activo
+                "activo": producto.activo,
+                "imagen": producto.imagen
+
             })
 
         return jsonify(resultado)
@@ -148,3 +152,27 @@ class ProductosAPIController(FlaskController):
                 "nombre": usuario.nombre_completo
             }
         })
+
+    import os
+
+    @app.route('/imagenes/<nombre>')
+    def imagen(nombre):
+
+        carpeta = os.path.join(app.root_path, 'static', 'uploads')
+
+        print("CARPETA:", carpeta)
+        print("NOMBRE:", nombre)
+
+        archivo = os.path.join(carpeta, nombre)
+
+        print("ARCHIVO:", archivo)
+        print("EXISTE:", os.path.isfile(archivo))
+
+        if not os.path.isfile(archivo):
+            return jsonify({
+                "error": "Imagen no encontrada",
+                "archivo": archivo
+            }), 404
+
+        return send_from_directory(carpeta, nombre)
+
